@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import style from "./forgot-password.module.css";
+import style from "./page-forgot-password.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -30,7 +30,7 @@ export const ForgotPasswordPage = () => {
             if (message) {
                 timer = setTimeout(() => {
                     dispatch(forgotFormFull())
-                    history.replace({pathname: '/reset-password'})
+                    history.replace({pathname: '/page-reset-password'})
                     dispatch(clearMessage())
                 }, 3000)
             }

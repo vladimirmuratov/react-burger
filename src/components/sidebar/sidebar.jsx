@@ -21,7 +21,7 @@ export const SideBar = () => {
 
     useEffect(() => {
         if (message){
-            history.replace({pathname: '/login'})
+            history.replace({pathname: '/page-login'})
         }
     }, [history, message])
 

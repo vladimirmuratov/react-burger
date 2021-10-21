@@ -1,15 +1,15 @@
 import React from "react";
-import style from './orders.module.css';
+import style from './page-history-orders.module.css';
 import {SideBar} from "../../components/sidebar/sidebar";
 
-export const OrdersPage = () => {
+export const HistoryOrdersPage = () => {
     return (
         <div className={style.wrapper}>
             <div>
                 <SideBar/>
             </div>
             <div className={style.form}>
-                OrdersPage
+                Page History Orders
             </div>
         </div>
     )

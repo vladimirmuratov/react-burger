@@ -9,7 +9,7 @@
     max-width: 1240px;
 }
 
-@media screen and (max-width: 1270px){
+@media (max-width: 1270px){
     .wrapper{
         display: grid;
         grid-template-columns: 1fr;

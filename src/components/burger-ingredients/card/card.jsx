@@ -3,7 +3,7 @@ import styles from './card.module.css';
 import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
-import {addCurrentIngredient, openModalIngredient} from "../../../services/ingredients/actions";
+import {addCurrentIngredient, openModal} from "../../../services/ingredients/actions";
 import {useDrag} from "react-dnd";
 import {Link, useLocation} from "react-router-dom";
 
@@ -22,7 +22,7 @@ export const Card = ({product}) => {
 
     const openModal = () => {
         dispatch(addCurrentIngredient(product))
-        dispatch(openModalIngredient(true))
+        dispatch(openModal(true))
     }
 
     return (

@@ -1,19 +1,20 @@
 import React from "react";
 import {Route, Switch, useLocation, useHistory} from "react-router-dom";
-import {MainPage} from "../../pages/main/main";
+import {MainPage} from "../../pages/page-main/page-main";
 import {IngredientDetails} from "../ingredient-details/ingredient-details";
-import {LoginPage} from "../../pages/login/login";
-import {RegisterPage} from "../../pages/register/register";
-import {ForgotPasswordPage} from "../../pages/forgot-password/forgot-password";
-import {ResetPasswordPage} from "../../pages/reset-password/reset-password";
+import {LoginPage} from "../../pages/page-login/page-login";
+import {RegisterPage} from "../../pages/page-register/page-register";
+import {ForgotPasswordPage} from "../../pages/page-forgot-password/page-forgot-password";
+import {ResetPasswordPage} from "../../pages/page-reset-password/page-reset-password";
 import {ProtectedRoute} from "../protected-route/protected-route";
-import {ProfilePage} from "../../pages/profile/profile";
-import {OrdersPage} from "../../pages/orders/orders";
-import {NotFound404} from "../../pages/not-found/not-found";
+import {ProfilePage} from "../../pages/page-profile/page-profile";
+import {HistoryOrdersPage} from "../../pages/page-history-orders/page-history-orders";
+import {NotFound404} from "../../pages/page-not-found/page-not-found";
 import {Modal} from "../modal/modal";
 import {useDispatch} from "react-redux";
-import {deleteCurrentIngredient, openModalIngredient} from "../../services/ingredients/actions";
-import {OrderPage} from "../../pages/order/order";
+import {deleteCurrentIngredient, openModal} from "../../services/ingredients/actions";
+import {HistoryOrderPage} from "../../pages/page-order/page-order";
+import {FeedPage} from "../../pages/page-feed/page-feed";
 
 export const SwitchModal = () => {
     const history = useHistory()
@@ -24,7 +25,7 @@ export const SwitchModal = () => {
     const dispatch = useDispatch()
 
     const handleModalClose = () => {
-        dispatch(openModalIngredient(false))
+        dispatch(openModal(false))
         dispatch(deleteCurrentIngredient())
         history.goBack()
     }
@@ -33,6 +34,7 @@ export const SwitchModal = () => {
         <>
             <Switch location={background || location}>
                 <Route exact={true} path="/" render={() => <MainPage/>}/>
+                <Route exact={true} path="/feed" render={() => <FeedPage/>}/>
                 <Route exact={true} path="/ingredients/:id" render={() => <IngredientDetails/>}/>
                 <Route exact={true} path="/login" render={() => <LoginPage/>}/>
                 <Route exact={true} path="/register" render={() => <RegisterPage/>}/>
@@ -42,10 +44,10 @@ export const SwitchModal = () => {
                     <ProfilePage/>
                 </ProtectedRoute>
                 <ProtectedRoute exact={true} path="/profile/orders">
-                    <OrdersPage/>
+                    <HistoryOrdersPage/>
                 </ProtectedRoute>
                 <ProtectedRoute exact={true} path="/profile/orders/:orderNum">
-                    <OrderPage/>
+                    <HistoryOrderPage/>
                 </ProtectedRoute>
                 <Route exact={true} path="*" render={() => <NotFound404/>}/>
             </Switch>

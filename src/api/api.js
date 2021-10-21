@@ -1,15 +1,17 @@
 import {getCookie} from "../services/utils";
 
-const URL_GET_INGREDIENTS = 'https://norma.nomoreparties.space/api/ingredients';
-const URL_POST_ORDER = 'https://norma.nomoreparties.space/api/orders';
-const URL_REGISTER_USER = 'https://norma.nomoreparties.space/api/auth/register';
-const URL_LOGIN_USER = 'https://norma.nomoreparties.space/api/auth/login';
-const URL_GET_USER = 'https://norma.nomoreparties.space/api/auth/user';
-const URL_UPDATE_USER = 'https://norma.nomoreparties.space/api/auth/user';
-const URL_LOGOUT = 'https://norma.nomoreparties.space/api/auth/logout';
-const URL_REFRESH_TOKEN = 'https://norma.nomoreparties.space/api/auth/token';
-const URL_RESET_PASSWORD = 'https://norma.nomoreparties.space/api/password-reset';
-const URL_SAVE_RESET_PASSWORD = 'https://norma.nomoreparties.space/api/password-reset/reset';
+const BASE_URL = 'https://norma.nomoreparties.space/api'
+
+const URL_GET_INGREDIENTS = `${BASE_URL}/ingredients`;
+const URL_POST_ORDER = `${BASE_URL}/orders`;
+const URL_REGISTER_USER = `${BASE_URL}/auth/register`;
+const URL_LOGIN_USER = `${BASE_URL}/auth/login`;
+const URL_GET_USER = `${BASE_URL}/auth/user`;
+const URL_UPDATE_USER = `${BASE_URL}/auth/user`;
+const URL_LOGOUT = `${BASE_URL}/auth/logout`;
+const URL_REFRESH_TOKEN = `${BASE_URL}/auth/token`;
+const URL_RESET_PASSWORD = `${BASE_URL}/password-reset`;
+const URL_SAVE_RESET_PASSWORD = `${BASE_URL}/password-reset/reset`;
 
 const checkResponse = (res) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err))

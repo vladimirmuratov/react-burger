@@ -12,16 +12,16 @@ export const AppHeader = () => {
 
     return (
         <header className={styles.wrapper}>
-            <div className={styles.construct}>
-                <Constructor/>
+            <div className={styles.wrapper__leftBlock}>
+                <div>
+                    <Constructor/>
+                </div>
+                <div>
+                    <Feed/>
+                </div>
             </div>
-            <div className={styles.feed}>
-                <Feed/>
-            </div>
-            <div className={styles.logo}>
                 <LogoHeader/>
-            </div>
-            <div className={styles.account}>
+            <div className={styles.wrapper__account}>
                 {isAuth
                     ? (< Account/>)
                     : (<Login/>)

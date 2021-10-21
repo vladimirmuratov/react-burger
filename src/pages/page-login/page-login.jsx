@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import style from './login.module.css';
+import style from './page-login.module.css';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useHistory, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";

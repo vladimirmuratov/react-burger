@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import style from './reset-password.module.css';
+import style from './page-reset-password.module.css';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -19,7 +19,7 @@ export const ResetPasswordPage = () => {
     const isForgotEmailForm = useSelector(state => state.user.isForgotEmailForm)
 
     if(!isForgotEmailForm){
-        history.replace({pathname: '/forgot-password'})
+        history.replace({pathname: '/page-forgot-password'})
     }
 
     useEffect(() => {
@@ -32,7 +32,7 @@ export const ResetPasswordPage = () => {
         let timer
         if (message) {
             timer = setTimeout(() => {
-                history.replace({pathname: '/login'})
+                history.replace({pathname: '/page-login'})
                 dispatch(clearMessage())
             }, 3000)
         }

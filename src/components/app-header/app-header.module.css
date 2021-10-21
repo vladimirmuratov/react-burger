@@ -3,56 +3,37 @@
     /*position: sticky;
     top: 0;*/
 
-    display: grid;
-    grid-template-columns: [start] 1fr [lenta-start] 1fr [lenta-end] 2fr [account-start] 1fr [end];
+    display: flex;
     align-items: center;
-    justify-items: center;
-    gap: 8px;
+    justify-content: center;
+    gap: 200px;
+
+    max-width: 2583px;
 
     background: #1C1C21;
 
     padding: 16px 0;
 }
 
-.construct {
-    grid-column: start / lenta-start;
-    justify-self: flex-end;
+.wrapper__leftBlock {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 49px;
+    margin-left: -40px;
 }
 
-.feed {
-    grid-column: lenta-start / lenta-end;
-    justify-self: flex-start;
-}
-
-.logo {
-    grid-column: lenta-end / account-start;
-    justify-self: flex-start;
-}
-
-.account {
-    grid-column: account-start / end;
-    justify-self: flex-start;
-}
-
-@media screen and (max-width: 950px) {
+@media (max-width: 1200px) {
     .wrapper {
         display: flex;
         justify-content: center;
     }
 
-    .construct {
+    .wrapper__leftBlock {
         display: none;
     }
 
-    .feed {
+    .wrapper__account {
         display: none;
-    }
-
-    .account {
-        display: none;
-    }
-
-    .logo {
-        grid-column: 1 / 2;
     }
 }

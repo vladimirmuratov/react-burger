@@ -18,6 +18,7 @@
 .link{
     composes: font;
     color: #8585AD;
+    transition: all 1s ease 0s;
 }
 
 .link:hover{

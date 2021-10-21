@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import style from './profile.module.css';
+import style from './page-profile.module.css';
 import {SideBar} from "../../components/sidebar/sidebar";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";

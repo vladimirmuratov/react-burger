@@ -8,12 +8,12 @@ import {
     addIngredientInConstructor,
     clearConstructor,
     deleteIngredientInConstructor,
-    incrementCount,
+    incrementCount, openModal,
     updateConstructor
 } from "../../services/ingredients/actions";
 import {DraggableConstructorCard} from "../draggable-constructor-card/draggable-constructor-card";
 import {Modal} from "../modal/modal";
-import {clearOrder, openModalOrder, postOrderData} from "../../services/order/actions";
+import {clearOrder, postOrderData} from "../../services/order/actions";
 import {useHistory} from 'react-router-dom';
 
 
@@ -27,7 +27,7 @@ export const BurgerConstructor = () => {
 
     const bun = data.length && data.filter(item => item.type === 'bun')
     const ingredients = data.length && data.filter(item => item.type !== 'bun')
-    const isVisibleModal = useSelector(state => state.order.isModalOrderOpen)
+    const isVisibleModal = useSelector(state => state.burger.isModalOpen)
 
     const [total, setTotal] = useState(0)
 
@@ -78,17 +78,17 @@ export const BurgerConstructor = () => {
 
     const openHandler = () => {
         if(!isAuth){
-            return history.replace({pathname: '/login'})
+            return history.replace({pathname: '/page-login'})
         }
 
         const arrIds = []
         data.map(item => arrIds.push(item._id))
         dispatch(postOrderData(arrIds))
-        dispatch(openModalOrder(true))
+        dispatch(openModal(true))
     }
 
     const closeHandler = () => {
-        dispatch(openModalOrder(false))
+        dispatch(openModal(false))
         dispatch(clearOrder())
         dispatch(clearConstructor())
     }

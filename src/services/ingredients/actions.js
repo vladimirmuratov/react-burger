@@ -15,7 +15,7 @@ export const UPDATE_MOVE_CARDS = 'UPDATE_MOVE_CARDS';
 
 export const CLEAR_CONSTRUCTOR = 'CLEAR_CONSTRUCTOR';
 
-export const TOGGLE_INGREDIENT_MODAL = 'TOGGLE_INGREDIENT_MODAL';
+export const TOGGLE_MODAL = 'TOGGLE_MODAL';
 
 export const fetchData = () => async (dispatch) => {
     dispatch({
@@ -66,8 +66,8 @@ export const clearConstructor = () => ({
     type: CLEAR_CONSTRUCTOR
 })
 
-export const openModalIngredient = (bool) => ({
-    type: TOGGLE_INGREDIENT_MODAL,
+export const openModal = (bool) => ({
+    type: TOGGLE_MODAL,
     payload: bool
 })
 

@@ -7,8 +7,6 @@ export const PUT_ORDER_IDS_INGREDIENTS = 'PUT_ORDER_IDS_INGREDIENTS';
 
 export const CLEAR_ORDER = 'CLEAR_ORDER';
 
-export const TOGGLE_ORDER_MODAL = 'TOGGLE_ORDER_MODAL';
-
 export const postOrderData = (data) => async (dispatch) => {
     let response
 
@@ -32,9 +30,4 @@ export const postOrderData = (data) => async (dispatch) => {
 
 export const clearOrder = () => ({
     type: CLEAR_ORDER
-})
-
-export const openModalOrder = (bool) => ({
-    type: TOGGLE_ORDER_MODAL,
-    payload: bool
 })
