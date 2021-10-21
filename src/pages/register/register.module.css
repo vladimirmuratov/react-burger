@@ -1,0 +1,30 @@
+.wrapper {
+    height: 80vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
+
+    margin-top: 40px;
+}
+
+.content {
+    width: 480px;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.input{
+    margin-top: 24px;
+}
+
+.button{
+    margin: 24px 0 50px 0;
+}
+
+.content a{
+    text-decoration: none;
+}

@@ -1,0 +1,67 @@
+html{
+    scroll-behavior: smooth;
+}
+
+.block {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+
+    margin-bottom: 40px;
+}
+
+.content {
+    display: grid;
+
+    height: 600px;
+    overflow-y: scroll;
+}
+
+.content::-webkit-scrollbar {
+    width: 8px;
+    background-color: #2f2f37;
+}
+
+.content::-webkit-scrollbar-thumb {
+    background-color: #8585ad;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 24px;
+}
+
+.title {
+    justify-self: flex-start;
+    margin: 40px 0 20px 0;
+}
+
+.subtitle > p{
+    margin-top: 40px;
+    margin-bottom: 24px;
+}
+
+.tab {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.tab > a {
+    text-decoration: none;
+}
+
+@media screen and (max-width: 950px){
+    .wrapper {
+        display: grid;
+        grid-template-columns: auto;
+        gap: 24px;
+    }
+    .title {
+        justify-self: center;
+        margin: 40px 0 20px 0;
+    }
+    .subtitle{
+        justify-self: center;
+    }
+}

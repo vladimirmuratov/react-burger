@@ -1,0 +1,36 @@
+.wrapper {
+    position: relative;
+
+    display: grid;
+    justify-items: center;
+
+    margin-bottom: 32px;
+    margin-left: 16px;
+
+    cursor: pointer;
+}
+
+.price {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-content: center;
+    gap: 9px;
+
+    margin-bottom: 8px;
+}
+
+.text {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.counter{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.link{
+    color: inherit;
+    text-decoration: none;
+}

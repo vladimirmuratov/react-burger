@@ -1,0 +1,13 @@
+.container {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  margin: auto;
+}
+
+.link {
+  color: var(--primary);
+}

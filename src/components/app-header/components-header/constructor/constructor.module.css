@@ -1,0 +1,40 @@
+.wrapper {
+    width: 178px;
+    height: 56px;
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-content: center;
+    justify-content: center;
+
+    background-color: inherit;
+    border: none;
+    border-radius: 40px;
+    padding: 16px 20px 16px 0;
+
+    cursor: pointer;
+}
+
+.link {
+    font-family: "JetBrains Mono", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    color: #8585AD;
+    text-decoration: none;
+}
+
+.link:hover{
+    font-family: "JetBrains Mono", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    text-decoration: none;
+    color: #F2F2F3;
+}
+
+.activeLink{
+    font-family: "JetBrains Mono", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    text-decoration: none;
+    color: #F2F2F3;
+}

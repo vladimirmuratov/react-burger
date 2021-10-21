@@ -1,0 +1,28 @@
+.content {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+}
+
+.img {
+
+    display: grid;
+    justify-items: center;
+    align-items: center;
+
+    width: 520px;
+    height: 240px;
+
+    margin-bottom: 16px;
+}
+
+.footer {
+    display: flex;
+    align-content: space-around;
+    margin-top: 32px;
+    margin-bottom: 60px;
+}
+
+.footer > div {
+    text-align: center;
+}
