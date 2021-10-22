@@ -6,8 +6,8 @@ import {Ingredient} from "../ingredient/ingredient";
 export const IngredientDetails = () => {
     const {id} = useParams()
 
-    const ingredient = useSelector(state => state.burger.currentIngredient)
     const ingredients = useSelector(state => state.burger.ingredients)
+    const ingredient = useSelector(state => state.burger.currentIngredient)
     const ingredient2 = ingredients.find(item => item._id === id)
 
     return (

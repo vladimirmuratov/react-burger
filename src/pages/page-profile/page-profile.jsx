@@ -95,58 +95,60 @@ export const ProfilePage = () => {
                 <SideBar/>
             </div>
             <div className={style.form}>
-                {isLoading && (
-                    <div className={style.loader}>
-                        <Preloader/>
-                    </div>
-                )}
-                {error && <p className="text text_type_main-default" style={{color: 'red'}}>{error}</p>}
-                {successMessage &&
-                <p className="text text_type_main-default ml-10" style={{color: 'green'}}>{successMessage}</p>}
-                <Input value={form.name}
-                       name="name"
-                       onChange={changeHandler}
-                       onIconClick={iconClickHandlerName}
-                       onBlur={() => setIsDisabledName(true)}
-                       type="text"
-                       placeholder="Имя"
-                       ref={nameRef}
-                       icon="EditIcon"
-                       size="default"
-                       errorText={'Ошибка'}
-                       disabled={isDisabledName}
-                />
-                <Input value={form.email}
-                       name="email"
-                       onChange={changeHandler}
-                       onIconClick={iconClickHandlerEmail}
-                       onBlur={() => setIsDisabledEmail(true)}
-                       type="email"
-                       placeholder="Логин"
-                       ref={emailRef}
-                       icon="EditIcon"
-                       size="default"
-                       errorText={'Ошибка'}
-                       disabled={isDisabledEmail}
-                />
-                <Input value={form.password}
-                       name="password"
-                       onChange={changeHandler}
-                       onIconClick={iconClickHandlerPass}
-                       onBlur={() => setIsDisabledPass(true)}
-                       type="password"
-                       ref={passRef}
-                       placeholder="Пароль"
-                       icon="EditIcon"
-                       size="default"
-                       errorText={'Ошибка'}
-                       disabled={isDisabledPass}
-                />
-                {isChanged &&
-                <div className={style.blockButton}>
-                    <Button type="secondary" size="small" onClick={prevDataHandler}>Отменить</Button>
-                    <Button type="primary" size="small" onClick={saveHandler}>Сохранить</Button>
-                </div>
+                {isLoading
+                    ?   <div className={style.loader}>
+                            <Preloader/>
+                        </div>
+                    : <>
+                        {error && <p className="text text_type_main-default" style={{color: 'red'}}>{error}</p>}
+                        {successMessage &&
+                        <p className="text text_type_main-default ml-10" style={{color: 'green'}}>{successMessage}</p>}
+                        <Input value={form.name}
+                               name="name"
+                               onChange={changeHandler}
+                               onIconClick={iconClickHandlerName}
+                               onBlur={() => setIsDisabledName(true)}
+                               type="text"
+                               placeholder="Имя"
+                               ref={nameRef}
+                               icon="EditIcon"
+                               size="default"
+                               errorText={'Ошибка'}
+                               disabled={isDisabledName}
+                        />
+                        <Input value={form.email}
+                               name="email"
+                               onChange={changeHandler}
+                               onIconClick={iconClickHandlerEmail}
+                               onBlur={() => setIsDisabledEmail(true)}
+                               type="email"
+                               placeholder="Логин"
+                               ref={emailRef}
+                               icon="EditIcon"
+                               size="default"
+                               errorText={'Ошибка'}
+                               disabled={isDisabledEmail}
+                        />
+                        <Input value={form.password}
+                               name="password"
+                               onChange={changeHandler}
+                               onIconClick={iconClickHandlerPass}
+                               onBlur={() => setIsDisabledPass(true)}
+                               type="password"
+                               ref={passRef}
+                               placeholder="Пароль"
+                               icon="EditIcon"
+                               size="default"
+                               errorText={'Ошибка'}
+                               disabled={isDisabledPass}
+                        />
+                        {isChanged &&
+                        <div className={style.blockButton}>
+                            <Button type="secondary" size="small" onClick={prevDataHandler}>Отменить</Button>
+                            <Button type="primary" size="small" onClick={saveHandler}>Сохранить</Button>
+                        </div>
+                        }
+                    </>
                 }
             </div>
         </div>

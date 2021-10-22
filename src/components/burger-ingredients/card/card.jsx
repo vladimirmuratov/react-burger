@@ -20,7 +20,7 @@ export const Card = ({product}) => {
         item: {...product}
     })
 
-    const openModal = () => {
+    const onOpenModal = () => {
         dispatch(addCurrentIngredient(product))
         dispatch(openModal(true))
     }
@@ -32,7 +32,7 @@ export const Card = ({product}) => {
         }}
               className={styles.link}
         >
-            <div ref={dragRef} className={styles.wrapper} onClick={openModal}>
+            <div ref={dragRef} className={styles.wrapper} onClick={onOpenModal}>
                 {totalCount > 0 &&
                 <span className={styles.counter}>
                     <Counter count={totalCount}/>

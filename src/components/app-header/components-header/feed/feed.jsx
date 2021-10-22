@@ -9,7 +9,7 @@ export const Feed = () => {
 
     return (
         <NavLink exact={true} to="/feed" className={styles.wrapper}>
-            <span>
+            <span className={styles.icon}>
                 <ListIcon type={isExact ? "primary" : "secondary"}/>
             </span>
             <span className={isExact ? styles.activeLink : styles.link}>Лента заказов</span>

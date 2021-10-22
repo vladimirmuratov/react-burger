@@ -13,7 +13,7 @@ export const Account = () => {
 
     return (
         <NavLink exact={true} to="/profile" className={styles.wrapper}>
-            <span>
+            <span className={styles.icon}>
                 <ProfileIcon type={isExact ? "primary" : "secondary"}/>
             </span>
             <span className={styles.block}>

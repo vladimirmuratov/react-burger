@@ -7,14 +7,13 @@ import {useSelector} from "react-redux";
 
 
 export const Modal = ({title = '', onClose, children}) => {
-    const isOpenModalIngredient = useSelector(state => state.burger.isModalIngredientOpen)
-    const isOpenModalOrder = useSelector(state => state.order.isModalOrderOpen)
+    const isOpenModal = useSelector(state => state.burger.isModalOpen)
 
     useEffect(() => {
-        if(!isOpenModalIngredient && !isOpenModalOrder){
+        if(!isOpenModal){
             return undefined
         }
-    }, [isOpenModalOrder, isOpenModalIngredient])
+    }, [isOpenModal])
 
     return (
         <ModalOverlay onClose={onClose}>

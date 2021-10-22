@@ -8,8 +8,7 @@ const modalRoot = document.getElementById("modal");
 
 
 export const ModalOverlay = ({onClose, children}) => {
-    const isOpenModalIngredient = useSelector(state => state.burger.isModalIngredientOpen)
-    const isOpenModalOrder = useSelector(state => state.order.isModalOrderOpen)
+    const isOpenModal = useSelector(state => state.burger.isModalOpen)
 
     const handlerEscClick = (e) => {
         if (e.key === "Escape") {
@@ -32,7 +31,7 @@ export const ModalOverlay = ({onClose, children}) => {
 
     return (
         <>
-            {(isOpenModalOrder || isOpenModalIngredient) &&
+            {(isOpenModal) &&
             ReactDOM.createPortal((
                     <div className={styles.parent} onClick={handleOverlayClick}>
                         {children}

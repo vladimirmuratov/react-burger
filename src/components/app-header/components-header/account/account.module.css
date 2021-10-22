@@ -16,10 +16,18 @@
 
 }
 
+.wrapper:hover {
+    color: #F2F2F3;
+}
+
+.wrapper:hover svg {
+    fill: #F2F2F3;
+}
+
 .link {
     composes: font;
     color: #8585AD;
-    transition: all 1s ease 0s;
+    transition: all 0.8s ease 0s;
 }
 
 .link:hover{
@@ -47,5 +55,9 @@
     font-size: 14px;
     line-height: 24px;
     color: #8585AD;
-    transition: all 1s ease 0s;
+    transition: all 0.8s ease 0s;
+}
+
+.icon svg {
+    transition: all 0.8s ease 0s;
 }

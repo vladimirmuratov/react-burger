@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './constructor.module.css';
 import {BurgerIcon} from '@ya.praktikum/react-developer-burger-ui-components'
-import {NavLink, useHistory, useRouteMatch, useLocation} from 'react-router-dom'
+import {NavLink, useLocation} from 'react-router-dom'
 
 export const Constructor = () => {
     const {pathname} = useLocation()
@@ -9,7 +9,7 @@ export const Constructor = () => {
 
     return (
         <NavLink exact={true} to="/" className={styles.wrapper}>
-            <span>
+            <span className={styles.icon}>
                 <BurgerIcon type={isExact ? "primary" : "secondary"}/>
             </span>
             <span className={isExact ? styles.activeLink : styles.link}>Конструктор</span>

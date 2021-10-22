@@ -19,23 +19,33 @@
     cursor: pointer;
 }
 
-.link {
-    composes: font;
-    display: inline;
-    color: #8585AD;
-    transition: all 1s ease 0s;
+.wrapper:hover {
+    color: #F2F2F3;
 }
 
-a {
-    text-decoration: none;
+.wrapper:hover svg {
+    fill: #F2F2F3;
+}
+
+.link {
+    composes: font;
+    color: #8585AD;
+    transition: all 0.8s ease 0s;
 }
 
 .link:hover {
     color: #F2F2F3;
 }
 
+a {
+    text-decoration: none;
+}
+
 .activeLink {
     composes: font;
-    text-decoration: none;
     color: #F2F2F3;
+}
+
+.icon svg {
+    transition: all 0.8s ease 0s;
 }
