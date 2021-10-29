@@ -19,7 +19,7 @@ export const ResetPasswordPage = () => {
     const isForgotEmailForm = useSelector(state => state.user.isForgotEmailForm)
 
     if(!isForgotEmailForm){
-        history.replace({pathname: '/page-forgot-password'})
+        history.replace({pathname: '/forgot-password'})
     }
 
     useEffect(() => {
@@ -32,7 +32,7 @@ export const ResetPasswordPage = () => {
         let timer
         if (message) {
             timer = setTimeout(() => {
-                history.replace({pathname: '/page-login'})
+                history.replace({pathname: '/login'})
                 dispatch(clearMessage())
             }, 3000)
         }

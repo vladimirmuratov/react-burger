@@ -30,7 +30,7 @@ export const ForgotPasswordPage = () => {
             if (message) {
                 timer = setTimeout(() => {
                     dispatch(forgotFormFull())
-                    history.replace({pathname: '/page-reset-password'})
+                    history.replace({pathname: '/reset-password'})
                     dispatch(clearMessage())
                 }, 3000)
             }

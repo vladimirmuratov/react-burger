@@ -77,8 +77,8 @@ export const BurgerConstructor = () => {
     }
 
     const openHandler = () => {
-        if(!isAuth){
-            return history.replace({pathname: '/page-login'})
+        if (!isAuth) {
+            return history.replace({pathname: '/login'})
         }
 
         const arrIds = []
@@ -106,66 +106,64 @@ export const BurgerConstructor = () => {
     return (
         <>
             <section className={styles.block}>
-                <>
-                    <div className={`${styles.itemUp} ${isHoverBun && styles.activeBorder}`} ref={dropTargetBun}>
-                        {bun.length
-                            ? bun.map(item => (
-                                <ConstructorElement key={item._id} text={`${item.name} (верх)`} thumbnail={item.image}
-                                                    price={item.price}
-                                                    type="top"
-                                                    isLocked={true}/>
-                            ))
-                            : <p className="text text_type_main-default">Перетащите сюда булку</p>
+                <div className={`${styles.itemUp} ${isHoverBun && styles.activeBorder}`} ref={dropTargetBun}>
+                    {bun.length
+                        ? bun.map(item => (
+                            <ConstructorElement key={item._id} text={`${item.name} (верх)`} thumbnail={item.image}
+                                                price={item.price}
+                                                type="top"
+                                                isLocked={true}/>
+                        ))
+                        : <p className="text text_type_main-default">Перетащите сюда булку</p>
+                    }
+                </div>
+                <div className={`${styles.content} ${isHover && styles.activeBorder}`} ref={dropTargetItem}>
+                    <div ref={dropTargetItem2}>
+                        {ingredients.length > 0
+                            ? ingredients && ingredients.map((item, index) => (
+                            <DraggableConstructorCard
+                                key={index}
+                                item={item}
+                                index={index}
+                                customId={item.customId}
+                                deleteHandler={deleteHandler}
+                                moveCard={moveCard}
+                            />
+                        ))
+                            : <p className="text text_type_main-default">Перетащите сюда ингредиенты</p>
                         }
                     </div>
-                    <div className={`${styles.content} ${isHover && styles.activeBorder}`} ref={dropTargetItem}>
-                        <div ref={dropTargetItem2} style={{padding: 20}}>
-                            {ingredients.length > 0
-                                ? ingredients && ingredients.map((item, index) => (
-                                <DraggableConstructorCard
-                                    key={index}
-                                    item={item}
-                                    index={index}
-                                    customId={item.customId}
-                                    deleteHandler={deleteHandler}
-                                    moveCard={moveCard}
-                                />
-                            ))
-                                : <p className="text text_type_main-default">Перетащите сюда ингредиенты</p>
-                            }
-                        </div>
-                    </div>
-                    <div className={styles.itemDown}>
-                        {bun.length ?
-                            bun.map(item => (
-                                <ConstructorElement key={item._id} text={`${item.name} (низ)`} thumbnail={item.image}
-                                                    price={item.price}
-                                                    type="bottom"
-                                                    isLocked={true}/>
-                            ))
-                            : <></>
-                        }
-                    </div>
+                </div>
+                <div className={styles.itemDown}>
+                    {bun.length ?
+                        bun.map(item => (
+                            <ConstructorElement key={item._id} text={`${item.name} (низ)`} thumbnail={item.image}
+                                                price={item.price}
+                                                type="bottom"
+                                                isLocked={true}/>
+                        ))
+                        : <></>
+                    }
+                </div>
 
-                    <div className={styles.buttonBlock}>
-                        {total
-                            ? (
-                                <>
-                                    <span className="text text_type_digits-medium">{total}</span>
-                                    <span className={styles.icon}><CurrencyIcon type="primary"/></span>
-                                </>
-                            )
-                            : <></>}
-                        {bun.length
-                            ? (
-                                <Button type={isAuth ? "primary" : "secondary"} size="large" onClick={openHandler}>
-                                    {isAuth ? 'Оформить заказ' : 'Войти'}
-                                </Button>
-                            )
-                            : <></>
-                        }
-                    </div>
-                </>
+                <div className={styles.buttonBlock}>
+                    {total
+                        ? (
+                            <>
+                                <span className="text text_type_digits-medium">{total}</span>
+                                <span className={styles.icon}><CurrencyIcon type="primary"/></span>
+                            </>
+                        )
+                        : <></>}
+                    {bun.length
+                        ? (
+                            <Button type={isAuth ? "primary" : "secondary"} size="large" onClick={openHandler}>
+                                {isAuth ? 'Оформить заказ' : 'Войти'}
+                            </Button>
+                        )
+                        : <></>
+                    }
+                </div>
             </section>
             {isVisibleModal && modal}
         </>

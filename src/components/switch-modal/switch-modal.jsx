@@ -20,7 +20,8 @@ export const SwitchModal = () => {
     const history = useHistory()
     let location = useLocation()
     const action = history.action ==='PUSH' || history.action ==='REPLACE'
-    let background = action && location.state && location.state.background
+    // let background = action && location.state && location.state.background
+    let background = action && location?.state?.background
 
     const dispatch = useDispatch()
 
