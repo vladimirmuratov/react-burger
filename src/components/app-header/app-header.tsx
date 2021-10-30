@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {FC, useState} from 'react';
 import styles from './app-header.module.css';
 import {Constructor} from "./components-header/constructor/constructor";
 import {Feed} from "./components-header/feed/feed";
@@ -8,10 +8,11 @@ import {useSelector} from "react-redux";
 import {Login} from "./components-header/login/login";
 import {CloseIcon, MenuIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {NavLink} from "react-router-dom";
+import {TState} from "./app-header-types";
 
-export const AppHeader = () => {
-    const isAuth = useSelector(state => state.user.isAuth)
-    const [isOpenMobileMenu, setIsOpenMobileMenu] = useState(false)
+export const AppHeader: FC = () => {
+    const isAuth = useSelector<TState>(state => state.user.isAuth)
+    const [isOpenMobileMenu, setIsOpenMobileMenu] = useState<boolean>(false)
 
     return (
         <header className={styles.wrapper}>

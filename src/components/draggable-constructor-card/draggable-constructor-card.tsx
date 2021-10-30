@@ -1,11 +1,12 @@
-import React, {useRef} from "react";
+import React, {FC, useRef} from "react";
 import styles from "../burger-constructor/burger-constructor.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag, useDrop} from "react-dnd";
-import PropTypes from 'prop-types';
+import {TProps} from "./draggable-constructor-card-types";
+import {TItem} from "../burger-constructor/burger-constructor-types";
 
-export const DraggableConstructorCard = ({item, index, customId, moveCard, deleteHandler}) => {
-    const ref = useRef(null);
+export const DraggableConstructorCard:FC<TProps> = ({item, index, customId, moveCard, deleteHandler}) => {
+    const ref = useRef<HTMLDivElement>(null);
 
     const [{handlerId}, drop] = useDrop({
         accept: 'itemDrop',
@@ -14,7 +15,7 @@ export const DraggableConstructorCard = ({item, index, customId, moveCard, delet
                 handlerId: monitor.getHandlerId(),
             };
         },
-        hover(item, monitor) {
+        hover(item: TItem, monitor) {
             if (!ref.current) {
                 return;
             }
@@ -32,13 +33,13 @@ export const DraggableConstructorCard = ({item, index, customId, moveCard, delet
 
             const clientOffset = monitor.getClientOffset();
 
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+            const hoverClientY = clientOffset && (clientOffset.y - hoverBoundingRect.top);
 
-            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+            if (dragIndex < hoverIndex && hoverClientY && (hoverClientY < hoverMiddleY)) {
                 return;
             }
 
-            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+            if (dragIndex > hoverIndex && hoverClientY && (hoverClientY > hoverMiddleY)) {
                 return;
             }
 
@@ -66,11 +67,3 @@ export const DraggableConstructorCard = ({item, index, customId, moveCard, delet
         </div>
     )
 }
-
-DraggableConstructorCard.propTypes = {
-    item: PropTypes.object.isRequired,
-    index: PropTypes.number.isRequired,
-    customId: PropTypes.number,
-    moveCard: PropTypes.func.isRequired,
-    deleteHandler: PropTypes.func.isRequired
-};

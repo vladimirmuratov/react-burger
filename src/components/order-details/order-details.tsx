@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, {FC} from "react";
 import styles from './order-details.module.css';
 import {CheckMarkIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {TProps} from "./order-detail-types";
 
-export const OrderDetails = ({number}) => {
+export const OrderDetails: FC<TProps> = ({number}) => {
     return (
         <div className={styles.content}>
             <p className="text text_type_digits-large mb-8">{number}</p>
@@ -14,8 +14,4 @@ export const OrderDetails = ({number}) => {
                 готовности на орбитальной станции</p>
         </div>
     )
-}
-
-OrderDetails.propTypes = {
-    number: PropTypes.number
 }

@@ -1,9 +1,9 @@
-import React from "react";
+import React, {FC} from "react";
 import styles from './constructor.module.css';
 import {BurgerIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import {NavLink, useLocation} from 'react-router-dom'
 
-export const Constructor = () => {
+export const Constructor: FC = () => {
     const {pathname} = useLocation()
     const isExact = pathname === '/'
 

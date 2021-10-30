@@ -1,43 +1,44 @@
-import React, {useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {Card} from "./card/card";
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 import {useSelector} from "react-redux";
 import {Preloader} from "../preloader/preloader";
+import {TItem, TStateBurger} from "./burger-ingredients-types";
 
-export const BurgerIngredients = () => {
-    const data = useSelector(state => state.burger.ingredients)
-    const isLoading = useSelector(state => state.burger.isLoading)
+export const BurgerIngredients: FC = () => {
+    const data: any = useSelector<TStateBurger>(state => state.burger.ingredients)
+    const isLoading = useSelector<TStateBurger>(state => state.burger.isLoading)
 
-    const [bun, setBun] = useState([])
-    const [main, setMain] = useState([])
-    const [sauce, setSauce] = useState([])
-    const [current, setCurrent] = useState('one')
+    const [bun, setBun] = useState<Array<TItem>>([])
+    const [main, setMain] = useState<Array<TItem>>([])
+    const [sauce, setSauce] = useState<Array<TItem>>([])
+    const [current, setCurrent] = useState<string>('one')
 
     useEffect(() => {
-        const content = document.getElementById('content')
+        const content: HTMLElement | null = document.getElementById('content')
 
         function scroll() {
-            let scrollDistance = content.scrollTop
+            let scrollDistance = content && content.scrollTop
             if (scrollDistance === 0 && scrollDistance <= 350) {
                 setCurrent('one')
-            } else if (scrollDistance > 350 && scrollDistance < 1000) {
+            } else if (scrollDistance && (scrollDistance > 350 && scrollDistance < 1000)) {
                 setCurrent('two')
-            } else if (scrollDistance >= 1000) {
+            } else if (scrollDistance && (scrollDistance >= 1000)) {
                 setCurrent('three')
             }
         }
 
-        content.addEventListener('scroll', () => {
+        content && content.addEventListener('scroll', () => {
             scroll()
         })
         return () => {
-            content.removeEventListener('scroll', scroll)
+            content && content.removeEventListener('scroll', scroll)
         }
     }, [data])
 
-    const getProd = (type, setter) => {
-        data && data.map(item => (item.type === type) && setter(prevState => [
+    const getProd = (type: string, setter: Function): void => {
+        data && data.map((item: TItem) => (item.type === type) && setter((prevState: Array<TItem>) => [
             ...prevState,
             item
         ]))
@@ -69,7 +70,7 @@ export const BurgerIngredients = () => {
                             <p className="text text_type_main-medium">Булки</p>
                         </div>
                         <div className={styles.wrapper}>
-                            {bun.map((p, index) => (
+                            {bun.map((p) => (
                                 <Card key={p._id} product={p}/>
                             ))}
                         </div>

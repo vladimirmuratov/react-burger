@@ -1,9 +1,9 @@
-import React from "react";
+import React, {FC} from "react";
 import {ListIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './feed.module.css'
 import {NavLink, useLocation} from "react-router-dom";
 
-export const Feed = () => {
+export const Feed:FC = () => {
     const {pathname} = useLocation()
     const isExact = pathname === '/feed'
 

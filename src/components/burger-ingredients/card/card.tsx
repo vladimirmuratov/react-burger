@@ -1,15 +1,15 @@
-import React from "react";
+import React, {FC} from "react";
 import styles from './card.module.css';
 import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
 import {addCurrentIngredient, openModal} from "../../../services/ingredients/actions";
 import {useDrag} from "react-dnd";
 import {Link, useLocation} from "react-router-dom";
+import {TItem, TProps, TStateBurger} from "./card-types";
 
-export const Card = ({product}) => {
-    const data = useSelector(state => state.burger.ingredientsInConstructor)
-    const totalCount = data.length && data.filter(item => item._id === product._id).reduce((accum, item) => accum + item.count, 0)
+export const Card: FC<TProps> = ({product}) => {
+    const data: any = useSelector<TStateBurger>(state => state.burger.ingredientsInConstructor)
+    const totalCount = data.length && data.filter((item: TItem) => item._id === product._id).reduce((accum: number, item: TItem) => accum + item.count, 0)
     const dispatch = useDispatch()
 
     let location = useLocation();
@@ -51,8 +51,4 @@ export const Card = ({product}) => {
             </div>
         </Link>
     )
-}
-
-Card.propTypes = {
-    product: PropTypes.object.isRequired
 }

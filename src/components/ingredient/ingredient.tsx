@@ -1,8 +1,8 @@
-import React from "react";
+import React, {FC} from "react";
 import styles from './ingredient.module.css';
-import PropTypes from "prop-types";
+import {TProps} from "./ingredient-types";
 
-export const Ingredient = ({ingredient}) => {
+export const Ingredient: FC<TProps> = ({ingredient}) => {
     return(
         <div className={styles.content}>
             <div className={styles.img}>
@@ -29,8 +29,4 @@ export const Ingredient = ({ingredient}) => {
             </div>
         </div>
     )
-}
-
-Ingredient.propTypes = {
-    ingredient: PropTypes.object.isRequired
 }

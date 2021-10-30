@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {FC, useCallback, useEffect, useState} from "react";
 import styles from './burger-constructor.module.css';
 import {Button, ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {OrderDetails} from "../order-details/order-details";
@@ -8,26 +8,29 @@ import {
     addIngredientInConstructor,
     clearConstructor,
     deleteIngredientInConstructor,
-    incrementCount, openModal,
+    incrementCount,
+    openModal,
     updateConstructor
 } from "../../services/ingredients/actions";
 import {DraggableConstructorCard} from "../draggable-constructor-card/draggable-constructor-card";
 import {Modal} from "../modal/modal";
 import {clearOrder, postOrderData} from "../../services/order/actions";
 import {useHistory} from 'react-router-dom';
+import {TItem, TStateBurger, TStateOrder, TStateUser} from "./burger-constructor-types";
 
 
-export const BurgerConstructor = () => {
+export const BurgerConstructor: FC = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const data = useSelector(state => state.burger.ingredientsInConstructor)
-    const orderNum = useSelector(state => state.order.orderNum)
-    const isAuth = useSelector(state => state.user.isAuth)
+    //TODO any
+    const data: any = useSelector<TStateBurger>(state => state.burger.ingredientsInConstructor)
+    const orderNum: any = useSelector<TStateOrder>(state => state.order.orderNum)
+    const isAuth = useSelector<TStateUser>(state => state.user.isAuth)
 
-    const bun = data.length && data.filter(item => item.type === 'bun')
-    const ingredients = data.length && data.filter(item => item.type !== 'bun')
-    const isVisibleModal = useSelector(state => state.burger.isModalOpen)
+    const bun: Array<TItem> = data.length && data.filter((item: TItem) => item.type === 'bun')
+    const ingredients = data.length && data.filter((item: TItem) => item.type !== 'bun')
+    const isVisibleModal = useSelector<TStateBurger>(state => state.burger.isModalOpen)
 
     const [total, setTotal] = useState(0)
 
@@ -36,7 +39,7 @@ export const BurgerConstructor = () => {
         collect: monitor => ({
             isHoverBun: monitor.isOver(),
         }),
-        drop(item) {
+        drop(item: TItem) {
             addItem(item)
         }
     })
@@ -46,7 +49,7 @@ export const BurgerConstructor = () => {
         collect: monitor => ({
             isHover: monitor.isOver(),
         }),
-        drop(item) {
+        drop(item: TItem) {
             addItem(item)
         }
     })
@@ -56,7 +59,7 @@ export const BurgerConstructor = () => {
     })
 
     const moveCard = useCallback((dragIndex, hoverIndex) => {
-        const newCards = [...data.filter(item => item.type !== 'bun')];
+        const newCards = [...data.filter((item: TItem) => item.type !== 'bun')];
         newCards.splice(hoverIndex, 0, newCards.splice(dragIndex, 1)[0]);
         if (bun.length) {
             let data = bun.concat(newCards)
@@ -67,11 +70,11 @@ export const BurgerConstructor = () => {
     }, [data, bun, dispatch])
 
     useEffect(() => {
-        const sum = data.reduce((accum, item) => item.type === 'bun' ? accum + item.price * 2 : accum + item.price, 0)
+        const sum = data.reduce((accum: number, item: TItem) => item.type === 'bun' ? accum + item.price * 2 : accum + item.price, 0)
         setTotal(sum)
     }, [data])
 
-    const addItem = (item) => {
+    const addItem = (item: TItem) => {
         dispatch(addIngredientInConstructor(item))
         dispatch(incrementCount(item._id))
     }
@@ -81,8 +84,8 @@ export const BurgerConstructor = () => {
             return history.replace({pathname: '/login'})
         }
 
-        const arrIds = []
-        data.map(item => arrIds.push(item._id))
+        const arrIds: string[] = []
+        data.map((item: TItem) => arrIds.push(item._id))
         dispatch(postOrderData(arrIds))
         dispatch(openModal(true))
     }
@@ -93,7 +96,7 @@ export const BurgerConstructor = () => {
         dispatch(clearConstructor())
     }
 
-    const deleteHandler = (id) => {
+    const deleteHandler = (id: string) => {
         dispatch(deleteIngredientInConstructor(id))
     }
 
@@ -108,7 +111,7 @@ export const BurgerConstructor = () => {
             <section className={styles.block}>
                 <div className={`${styles.itemUp} ${isHoverBun && styles.activeBorder}`} ref={dropTargetBun}>
                     {bun.length
-                        ? bun.map(item => (
+                        ? bun.map((item: TItem) => (
                             <ConstructorElement key={item._id} text={`${item.name} (верх)`} thumbnail={item.image}
                                                 price={item.price}
                                                 type="top"
@@ -120,7 +123,7 @@ export const BurgerConstructor = () => {
                 <div className={`${styles.content} ${isHover && styles.activeBorder}`} ref={dropTargetItem}>
                     <div ref={dropTargetItem2}>
                         {ingredients.length > 0
-                            ? ingredients && ingredients.map((item, index) => (
+                            ? ingredients && ingredients.map((item: TItem, index: number) => (
                             <DraggableConstructorCard
                                 key={index}
                                 item={item}
@@ -136,7 +139,7 @@ export const BurgerConstructor = () => {
                 </div>
                 <div className={styles.itemDown}>
                     {bun.length ?
-                        bun.map(item => (
+                        bun.map((item: TItem) => (
                             <ConstructorElement key={item._id} text={`${item.name} (низ)`} thumbnail={item.image}
                                                 price={item.price}
                                                 type="bottom"
