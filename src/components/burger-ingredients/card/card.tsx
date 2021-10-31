@@ -5,11 +5,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {addCurrentIngredient, openModal} from "../../../services/ingredients/actions";
 import {useDrag} from "react-dnd";
 import {Link, useLocation} from "react-router-dom";
-import {TItem, TProps, TStateBurger} from "./card-types";
+import {TProps} from "./card-types";
+import {TItem} from "../../../types";
 
 export const Card: FC<TProps> = ({product}) => {
-    const data: any = useSelector<TStateBurger>(state => state.burger.ingredientsInConstructor)
-    const totalCount = data.length && data.filter((item: TItem) => item._id === product._id).reduce((accum: number, item: TItem) => accum + item.count, 0)
+    const data = useSelector((state: any) => state.burger.ingredientsInConstructor)
+    const totalCount: number = data.length && data.filter((item: TItem) => item._id === product._id).reduce((accum: number, item: TItem) => accum + item.count, 0)
     const dispatch = useDispatch()
 
     let location = useLocation();

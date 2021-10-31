@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FC} from "react";
 import {Route, Switch, useLocation, useHistory} from "react-router-dom";
 import {MainPage} from "../../pages/page-main/page-main";
 import {IngredientDetails} from "../ingredient-details/ingredient-details";
@@ -15,10 +15,11 @@ import {useDispatch} from "react-redux";
 import {deleteCurrentIngredient, openModal} from "../../services/ingredients/actions";
 import {HistoryOrderPage} from "../../pages/page-order/page-order";
 import {FeedPage} from "../../pages/page-feed/page-feed";
+import {ILocationState} from "./switch-modal-types";
 
-export const SwitchModal = () => {
+export const SwitchModal: FC = () => {
     const history = useHistory()
-    let location = useLocation()
+    let location = useLocation<ILocationState>()
     const action = history.action ==='PUSH' || history.action ==='REPLACE'
     // let background = action && location.state && location.state.background
     let background = action && location?.state?.background

@@ -1,6 +1,6 @@
-import React from "react";
+import React, {FC} from "react";
 
-export const Preloader = () => {
+export const Preloader: FC = () => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg"
              style={{margin: 'auto', background: 'none', display: 'block', shapeRendering: 'auto'}} width="50px"

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {FC, useEffect, useRef, useState} from "react";
 import style from './page-profile.module.css';
 import {SideBar} from "../../components/sidebar/sidebar";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -6,27 +6,27 @@ import {useDispatch, useSelector} from "react-redux";
 import {clearSuccessUpdateFlag, getProfileData, updateProfileData} from "../../services/user/actions";
 import {Preloader} from "../../components/preloader/preloader";
 
-export const ProfilePage = () => {
+export const ProfilePage: FC = () => {
     const dispatch = useDispatch()
-    const error = useSelector(state => state.user.error)
-    const successUpdate = useSelector(state => state.user.successUpdate)
-    const profile = useSelector(state => state.user.profile)
-    const isLoading = useSelector(state => state.user.isLoading)
+    const error = useSelector((state: any) => state.user.error)
+    const successUpdate = useSelector((state: any) => state.user.successUpdate)
+    const profile = useSelector((state: any) => state.user.profile)
+    const isLoading = useSelector((state: any) => state.user.isLoading)
 
-    const [form, setForm] = useState({
+    const [form, setForm] = useState<{ name: string | ''; email: string | ''; password: string | ''; }>({
         'name': '',
         'email': '',
         'password': ''
     })
-    const [isDisabledName, setIsDisabledName] = useState(true)
-    const [isDisabledEmail, setIsDisabledEmail] = useState(true)
-    const [isDisabledPass, setIsDisabledPass] = useState(true)
-    const [successMessage, setSuccessMessage] = useState('')
-    const [isChanged, setIsChanged] = useState(false)
+    const [isDisabledName, setIsDisabledName] = useState<boolean>(true)
+    const [isDisabledEmail, setIsDisabledEmail] = useState<boolean>(true)
+    const [isDisabledPass, setIsDisabledPass] = useState<boolean>(true)
+    const [successMessage, setSuccessMessage] = useState<string | ''>('')
+    const [isChanged, setIsChanged] = useState<boolean>(false)
 
-    const nameRef = useRef(null)
-    const emailRef = useRef(null)
-    const passRef = useRef(null)
+    const nameRef = useRef<HTMLInputElement>(null)
+    const emailRef = useRef<HTMLInputElement>(null)
+    const passRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
         dispatch(getProfileData())
@@ -37,7 +37,7 @@ export const ProfilePage = () => {
     }, [profile])
 
     useEffect(() => {
-        let timer
+        let timer: NodeJS.Timeout
         if (successUpdate) {
             setSuccessMessage('Данные успешно обновлены')
             timer = setTimeout(() => {
@@ -51,28 +51,28 @@ export const ProfilePage = () => {
         }
     }, [successUpdate, dispatch])
 
-    const changeHandler = (e) => {
+    const changeHandler = (e: { preventDefault: () => void; target: { name: string; value: string; }; }) => {
         e.preventDefault()
         setForm({...form, [e.target.name]: e.target.value})
         setIsChanged(true)
     }
 
-    const iconClickHandlerName = (e) => {
+    const iconClickHandlerName = (e: { preventDefault: () => void; }) => {
         e.preventDefault()
         setIsDisabledName(false)
-        setTimeout(() => nameRef.current.focus(), 0)
+        setTimeout(() => nameRef.current && nameRef.current.focus(), 0)
     }
 
-    const iconClickHandlerEmail = (e) => {
+    const iconClickHandlerEmail = (e: { preventDefault: () => void; }) => {
         e.preventDefault()
         setIsDisabledEmail(false)
-        setTimeout(() => emailRef.current.focus(), 0)
+        setTimeout(() => emailRef.current && emailRef.current.focus(), 0)
     }
 
-    const iconClickHandlerPass = (e) => {
+    const iconClickHandlerPass = (e: { preventDefault: () => void; }) => {
         e.preventDefault()
         setIsDisabledPass(false)
-        setTimeout(() => passRef.current.focus(), 0)
+        setTimeout(() => passRef.current && passRef.current.focus(), 0)
     }
 
     const saveHandler = () => {
@@ -96,9 +96,9 @@ export const ProfilePage = () => {
             </div>
             <div className={style.form}>
                 {isLoading
-                    ?   <div className={style.loader}>
-                            <Preloader/>
-                        </div>
+                    ? <div className={style.loader}>
+                        <Preloader/>
+                    </div>
                     : <>
                         {error && <p className="text text_type_main-default" style={{color: 'red'}}>{error}</p>}
                         {successMessage &&

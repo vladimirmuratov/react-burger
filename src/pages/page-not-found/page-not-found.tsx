@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Link} from 'react-router-dom';
 
 import styles from './page-not-found.module.css';
 
 
-export function NotFound404() {
+export const NotFound404: FC = () => {
 
     return (
         <div className={styles.container}>

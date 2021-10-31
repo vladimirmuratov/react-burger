@@ -1,12 +1,4 @@
-export type TStateBurger = {
-    burger: {
-        ingredients: [];
-        ingredientsInConstructor: [];
-        currentIngredient: {};
-        isLoading: boolean;
-        isModalOpen: boolean;
-    }
-}
+export type TItemWithIndex = TItem & {index: number;}
 
 export type TItem = {
     calories: number;

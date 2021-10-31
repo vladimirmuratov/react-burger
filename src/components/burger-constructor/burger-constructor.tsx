@@ -16,23 +16,22 @@ import {DraggableConstructorCard} from "../draggable-constructor-card/draggable-
 import {Modal} from "../modal/modal";
 import {clearOrder, postOrderData} from "../../services/order/actions";
 import {useHistory} from 'react-router-dom';
-import {TItem, TStateBurger, TStateOrder, TStateUser} from "./burger-constructor-types";
+import {TItem} from "../../types";
 
 
 export const BurgerConstructor: FC = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    //TODO any
-    const data: any = useSelector<TStateBurger>(state => state.burger.ingredientsInConstructor)
-    const orderNum: any = useSelector<TStateOrder>(state => state.order.orderNum)
-    const isAuth = useSelector<TStateUser>(state => state.user.isAuth)
+    const data = useSelector((state: any) => state.burger.ingredientsInConstructor)
+    const orderNum = useSelector((state: any) => state.order.orderNum)
+    const isAuth = useSelector((state: any) => state.user.isAuth)
 
     const bun: Array<TItem> = data.length && data.filter((item: TItem) => item.type === 'bun')
-    const ingredients = data.length && data.filter((item: TItem) => item.type !== 'bun')
-    const isVisibleModal = useSelector<TStateBurger>(state => state.burger.isModalOpen)
+    const ingredients: Array<TItem> = data.length && data.filter((item: TItem) => item.type !== 'bun')
+    const isVisibleModal = useSelector((state: any) => state.burger.isModalOpen)
 
-    const [total, setTotal] = useState(0)
+    const [total, setTotal] = useState<number>(0)
 
     const [{isHoverBun}, dropTargetBun] = useDrop({
         accept: 'bun',
@@ -96,7 +95,7 @@ export const BurgerConstructor: FC = () => {
         dispatch(clearConstructor())
     }
 
-    const deleteHandler = (id: string) => {
+    const deleteHandler = (id: number) => {
         dispatch(deleteIngredientInConstructor(id))
     }
 

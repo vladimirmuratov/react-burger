@@ -1,22 +1,23 @@
-import React, {useEffect} from "react";
+import React, {FC, useEffect} from "react";
 import styles from './modal-overlay.module.css';
 import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
+import {TProps} from "./modal-overlay-types";
 
-const modalRoot = document.getElementById("modal");
+const modalRoot: any = document.getElementById("modal");
 
 
-export const ModalOverlay = ({onClose, children}) => {
-    const isOpenModal = useSelector(state => state.burger.isModalOpen)
+export const ModalOverlay: FC<TProps> = ({onClose, children}) => {
+    const isOpenModal = useSelector((state: any) => state.burger.isModalOpen)
 
-    const handlerEscClick = (e) => {
+    const handlerEscClick = (e: { key: string; }) => {
         if (e.key === "Escape") {
             onClose()
         }
     }
 
-    const handleOverlayClick = (e) => {
+    //TODO any
+    const handleOverlayClick = (e: { target: any; currentTarget: any; }) => {
         if (e.target === e.currentTarget) {
             onClose()
         }
@@ -41,9 +42,4 @@ export const ModalOverlay = ({onClose, children}) => {
             }
         </>
     )
-}
-
-ModalOverlay.propTypes = {
-    onClose: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired
 }

@@ -4,14 +4,13 @@ import {NavLink, useLocation} from 'react-router-dom';
 
 import styles from './account.module.css';
 import {useSelector} from "react-redux";
-import {TState} from "./account-types";
 
 export const Account: FC = () => {
     const {pathname} = useLocation()
     const isExact = pathname === '/profile'
-    //TODO any
-    const name: any = useSelector<TState>(state => state.user.profile.name)
-    const name2: any = useSelector<TState>(state => state.user?.user?.user?.name)
+
+    const name = useSelector((state: any) => state.user.profile.name)
+    const name2 = useSelector((state: any) => state.user?.user?.user?.name)
 
     return (
         <NavLink exact={true} to="/profile" className={styles.wrapper}>

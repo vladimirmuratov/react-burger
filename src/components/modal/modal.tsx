@@ -1,13 +1,13 @@
-import React, {useEffect} from "react";
-import PropTypes from "prop-types";
+import React, {FC, useEffect} from "react";
 import styles from './modal.module.css';
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ModalOverlay} from "../modal-overlay/modal-overlay";
 import {useSelector} from "react-redux";
+import {TProps} from "./modal-types";
 
 
-export const Modal = ({title = '', onClose, children}) => {
-    const isOpenModal = useSelector(state => state.burger.isModalOpen)
+export const Modal: FC<TProps> = ({title = '', onClose, children}) => {
+    const isOpenModal = useSelector((state: any) => state.burger.isModalOpen)
 
     useEffect(() => {
         if(!isOpenModal){
@@ -28,10 +28,4 @@ export const Modal = ({title = '', onClose, children}) => {
             </div>
         </ModalOverlay>
     )
-}
-
-Modal.propTypes = {
-    onClose: PropTypes.func.isRequired,
-    title: PropTypes.string,
-    children: PropTypes.node.isRequired
 }

@@ -1,7 +1,7 @@
-import React from "react";
+import React, {FC} from "react";
 import styles from './page-feed.module.css';
 
-export const FeedPage = () => {
+export const FeedPage: FC = () => {
     return(
         <div>Feed Page</div>
     )

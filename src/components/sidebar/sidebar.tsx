@@ -1,14 +1,14 @@
-import React, {useCallback, useEffect} from "react";
+import React, {FC, useCallback, useEffect} from "react";
 import style from './sidebar.module.css';
 import {NavLink, useHistory} from "react-router-dom";
 import {clearUserData, logout} from "../../services/user/actions";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteCookie} from "../../services/utils";
 
-export const SideBar = () => {
+export const SideBar: FC = () => {
     const history = useHistory()
     const dispatch = useDispatch()
-    const message = useSelector(state => state.user.message)
+    const message = useSelector((state: any) => state.user.message)
 
     const logoutHandler = useCallback((e) => {
         e.preventDefault()

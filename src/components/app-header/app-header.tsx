@@ -8,10 +8,9 @@ import {useSelector} from "react-redux";
 import {Login} from "./components-header/login/login";
 import {CloseIcon, MenuIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {NavLink} from "react-router-dom";
-import {TState} from "./app-header-types";
 
 export const AppHeader: FC = () => {
-    const isAuth = useSelector<TState>(state => state.user.isAuth)
+    const isAuth = useSelector((state: any) => state.user.isAuth)
     const [isOpenMobileMenu, setIsOpenMobileMenu] = useState<boolean>(false)
 
     return (

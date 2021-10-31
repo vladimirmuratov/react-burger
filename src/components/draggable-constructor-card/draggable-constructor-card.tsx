@@ -3,9 +3,9 @@ import styles from "../burger-constructor/burger-constructor.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag, useDrop} from "react-dnd";
 import {TProps} from "./draggable-constructor-card-types";
-import {TItem} from "../burger-constructor/burger-constructor-types";
+import {TItemWithIndex} from "../../types";
 
-export const DraggableConstructorCard:FC<TProps> = ({item, index, customId, moveCard, deleteHandler}) => {
+export const DraggableConstructorCard: FC<TProps> = ({item, index, customId, moveCard, deleteHandler}) => {
     const ref = useRef<HTMLDivElement>(null);
 
     const [{handlerId}, drop] = useDrop({
@@ -15,7 +15,7 @@ export const DraggableConstructorCard:FC<TProps> = ({item, index, customId, move
                 handlerId: monitor.getHandlerId(),
             };
         },
-        hover(item: TItem, monitor) {
+        hover(item: TItemWithIndex, monitor) {
             if (!ref.current) {
                 return;
             }

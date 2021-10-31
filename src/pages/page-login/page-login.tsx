@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {FC, useCallback, useEffect, useState} from "react";
 import style from './page-login.module.css';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useHistory, useLocation} from "react-router-dom";
@@ -6,20 +6,21 @@ import {useDispatch, useSelector} from "react-redux";
 import {postLoginData} from "../../services/user/actions";
 import {setCookie} from "../../services/utils";
 import {Preloader} from "../../components/preloader/preloader";
+import {TLocation} from "./page-login-types";
 
-export const LoginPage = () => {
+export const LoginPage: FC = () => {
     const history = useHistory()
-    const {state} = useLocation()
+    const {state} = useLocation<TLocation>()
 
     const dispatch = useDispatch()
 
-    const [form, setForm] = useState({'email': '', 'password': ''})
+    const [form, setForm] = useState<{ email: string; password: string; }>({'email': '', 'password': ''})
 
-    const isAuth = useSelector(state => state.user.isAuth)
-    const error = useSelector(state => state.user.error)
-    const refreshToken = useSelector(state => state.user.user.refreshToken)
-    const accessToken = useSelector(state => state.user.user.accessToken)
-    const isLoading = useSelector(state => state.user.isLoading)
+    const isAuth = useSelector((state: any) => state.user.isAuth)
+    const error = useSelector((state: any) => state.user.error)
+    const refreshToken = useSelector((state: any) => state.user.user.refreshToken)
+    const accessToken = useSelector((state: any) => state.user.user.accessToken)
+    const isLoading = useSelector((state: any) => state.user.isLoading)
 
     useEffect(() => {
         if (isAuth) {
@@ -31,7 +32,7 @@ export const LoginPage = () => {
         }
     }, [isAuth, refreshToken, accessToken, history, state])
 
-    const onChange = (e) => {
+    const onChange = (e: { preventDefault: () => void; target: { name: string; value: string; }; }) => {
         e.preventDefault()
         setForm({...form, [e.target.name]: e.target.value})
     }

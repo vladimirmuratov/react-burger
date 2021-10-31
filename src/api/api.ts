@@ -13,8 +13,13 @@ const URL_REFRESH_TOKEN = `${BASE_URL}/auth/token`;
 const URL_RESET_PASSWORD = `${BASE_URL}/password-reset`;
 const URL_SAVE_RESET_PASSWORD = `${BASE_URL}/password-reset/reset`;
 
-const checkResponse = (res) => {
+const checkResponse = (res: Response) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err))
+}
+
+const updateTokenHeaders: any = {
+    'Content-Type': 'application/json',
+    authorization: getCookie('accessToken')
 }
 
 export const getDataRequest = () => {
@@ -22,7 +27,7 @@ export const getDataRequest = () => {
         .then(checkResponse)
 }
 
-export const postOrderRequest = (data) => {
+export const postOrderRequest = (data: Array<string>) => {
     return fetch(URL_POST_ORDER, {
         method: 'POST',
         body: JSON.stringify({"ingredients": data}),
@@ -33,7 +38,7 @@ export const postOrderRequest = (data) => {
         .then(checkResponse)
 }
 
-export const registerUserRequest = (data) => {
+export const registerUserRequest = (data: { name: string | ''; email: string | ''; password: string | ''; }) => {
     return fetch(URL_REGISTER_USER, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -44,7 +49,7 @@ export const registerUserRequest = (data) => {
         .then(checkResponse)
 }
 
-export const loginUserRequest = (data) => {
+export const loginUserRequest = (data: { email: string; password: string; }) => {
     return fetch(URL_LOGIN_USER, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -61,27 +66,21 @@ export const getUserProfileRequest = () => {
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: getCookie('accessToken')
-        },
+        headers: updateTokenHeaders,
         redirect: 'follow',
         referrerPolicy: 'no-referrer'
     })
         .then(checkResponse)
 }
 
-export const updateUserProfileRequest = (data) => {
+export const updateUserProfileRequest = (data: { name: string | ''; email: string | ''; password: string | ''; }) => {
     return fetch(URL_UPDATE_USER, {
         method: 'PATCH',
         body: JSON.stringify(data),
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: getCookie('accessToken')
-        },
+        headers: updateTokenHeaders,
         redirect: 'follow',
         referrerPolicy: 'no-referrer'
     })
@@ -110,7 +109,7 @@ export const refreshTokenRequest = () => {
         .then(checkResponse)
 }
 
-export const resetPasswordRequest = (data) => {
+export const resetPasswordRequest = (data: string) => {
     return fetch(URL_RESET_PASSWORD, {
         method: 'POST',
         body: JSON.stringify({email: data}),
@@ -121,7 +120,7 @@ export const resetPasswordRequest = (data) => {
         .then(checkResponse)
 }
 
-export const saveResetPasswordRequest = (data) => {
+export const saveResetPasswordRequest = (data: { token: string | ''; password: string | ''; }) => {
     return fetch(URL_SAVE_RESET_PASSWORD, {
         method: 'POST',
         body: JSON.stringify(data),

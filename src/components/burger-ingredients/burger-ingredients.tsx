@@ -4,11 +4,11 @@ import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 import {useSelector} from "react-redux";
 import {Preloader} from "../preloader/preloader";
-import {TItem, TStateBurger} from "./burger-ingredients-types";
+import {TItem} from "../../types";
 
 export const BurgerIngredients: FC = () => {
-    const data: any = useSelector<TStateBurger>(state => state.burger.ingredients)
-    const isLoading = useSelector<TStateBurger>(state => state.burger.isLoading)
+    const data: any = useSelector((state: any) => state.burger.ingredients)
+    const isLoading = useSelector((state: any) => state.burger.isLoading)
 
     const [bun, setBun] = useState<Array<TItem>>([])
     const [main, setMain] = useState<Array<TItem>>([])
