@@ -17,10 +17,10 @@ const checkResponse = (res: Response) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err))
 }
 
-const updateTokenHeaders: any = {
+const updateTokenHeaders: any = () => ({
     'Content-Type': 'application/json',
     authorization: getCookie('accessToken')
-}
+})
 
 export const getDataRequest = () => {
     return fetch(URL_GET_INGREDIENTS)
@@ -66,7 +66,7 @@ export const getUserProfileRequest = () => {
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
-        headers: updateTokenHeaders,
+        headers: updateTokenHeaders(),
         redirect: 'follow',
         referrerPolicy: 'no-referrer'
     })
@@ -80,7 +80,7 @@ export const updateUserProfileRequest = (data: { name: string | ''; email: strin
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
-        headers: updateTokenHeaders,
+        headers: updateTokenHeaders(),
         redirect: 'follow',
         referrerPolicy: 'no-referrer'
     })
