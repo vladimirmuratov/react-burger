@@ -17,6 +17,7 @@ import {Modal} from "../modal/modal";
 import {clearOrder, postOrderData} from "../../services/order/actions";
 import {useHistory} from 'react-router-dom';
 import {TItem} from "../../types";
+import {getProfileData} from "../../services/user/actions";
 
 
 export const BurgerConstructor: FC = () => {
@@ -32,6 +33,8 @@ export const BurgerConstructor: FC = () => {
     const isVisibleModal = useSelector((state: any) => state.burger.isModalOpen)
 
     const [total, setTotal] = useState<number>(0)
+
+    const refreshToken = localStorage.getItem('refreshToken')
 
     const [{isHoverBun}, dropTargetBun] = useDrop({
         accept: 'bun',
@@ -67,6 +70,12 @@ export const BurgerConstructor: FC = () => {
             dispatch(updateConstructor(newCards))
         }
     }, [data, bun, dispatch])
+
+    useEffect(() => {
+        if(refreshToken){
+            dispatch(getProfileData())
+        }
+    }, [dispatch, refreshToken])
 
     useEffect(() => {
         const sum = data.reduce((accum: number, item: TItem) => item.type === 'bun' ? accum + item.price * 2 : accum + item.price, 0)

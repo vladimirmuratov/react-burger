@@ -29,7 +29,7 @@ export const ProfilePage: FC = () => {
     const passRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
-        dispatch(getProfileData())
+            dispatch(getProfileData())
     }, [dispatch])
 
     useEffect(() => {

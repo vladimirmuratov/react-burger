@@ -1,19 +1,8 @@
-import React, {FC, useEffect} from "react";
+import React, {FC} from "react";
 import styles from './ingredient.module.css';
 import {TProps} from "./ingredient-types";
-import {getCookie} from "../../services/utils";
-import {useDispatch} from "react-redux";
-import {getProfileData} from "../../services/user/actions";
 
 export const Ingredient: FC<TProps> = ({ingredient}) => {
-    // const dispatch = useDispatch()
-   /* const accessToken = getCookie('accessToken')
-
-    useEffect(() => {
-        if(accessToken){
-            dispatch(getProfileData())
-        }
-    }, [dispatch, accessToken])*/
 
     return(
         <div className={styles.content}>
