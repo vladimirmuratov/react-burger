@@ -12,7 +12,6 @@ html{
 
 .content {
     display: grid;
-
     height: 600px;
     overflow-y: scroll;
 }
@@ -51,7 +50,7 @@ html{
     text-decoration: none;
 }
 
-@media screen and (max-width: 950px){
+@media (max-width: 950px){
     .wrapper {
         display: grid;
         grid-template-columns: auto;

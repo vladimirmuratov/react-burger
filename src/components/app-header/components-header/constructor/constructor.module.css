@@ -1,40 +1,51 @@
-.wrapper {
-    width: 178px;
-    height: 56px;
+.font {
+    font-family: "JetBrains Mono", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+}
 
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-content: center;
+.wrapper {
+    padding: 0;
+
+    display: flex;
+    align-items: center;
     justify-content: center;
+    gap: 9px;
 
     background-color: inherit;
     border: none;
     border-radius: 40px;
-    padding: 16px 20px 16px 0;
 
     cursor: pointer;
 }
 
+.wrapper:hover {
+    color: #F2F2F3;
+}
+
+.wrapper:hover svg {
+    fill: #F2F2F3;
+}
+
 .link {
-    font-family: "JetBrains Mono", sans-serif;
-    font-size: 16px;
-    line-height: 24px;
+    composes: font;
     color: #8585AD;
-    text-decoration: none;
+    transition: all 0.8s ease 0s;
 }
 
-.link:hover{
-    font-family: "JetBrains Mono", sans-serif;
-    font-size: 16px;
-    line-height: 24px;
-    text-decoration: none;
+.link:hover {
     color: #F2F2F3;
 }
 
-.activeLink{
-    font-family: "JetBrains Mono", sans-serif;
-    font-size: 16px;
-    line-height: 24px;
+a {
     text-decoration: none;
+}
+
+.activeLink {
+    composes: font;
     color: #F2F2F3;
+}
+
+.icon svg {
+    transition: all 0.8s ease 0s;
 }

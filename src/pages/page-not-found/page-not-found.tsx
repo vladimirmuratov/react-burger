@@ -1,0 +1,20 @@
+import React, {FC} from 'react';
+import {Link} from 'react-router-dom';
+
+import styles from './page-not-found.module.css';
+
+
+export const NotFound404: FC = () => {
+
+    return (
+        <div className={styles.container}>
+            <div className={styles.content}>
+                <h1>Oops! 404 Error</h1>
+                <p>The page you requested does not exist</p>
+                <br/>
+                <br/>
+                <p>check the address or try <Link to='/' className={styles.link}>homepage</Link></p>
+            </div>
+        </div>
+    );
+}

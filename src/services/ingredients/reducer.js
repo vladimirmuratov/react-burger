@@ -6,7 +6,7 @@ import {
     DELETE_INGREDIENT_IN_CONSTRUCTOR,
     END_LOADING,
     INCREMENT_COUNT,
-    START_LOADING, TOGGLE_INGREDIENT_MODAL,
+    START_LOADING, TOGGLE_MODAL,
     UPDATE_MOVE_CARDS
 } from "./actions";
 
@@ -16,7 +16,7 @@ const initialState = {
     ingredientsInConstructor: [],
     currentIngredient: {},
     isLoading: false,
-    isModalIngredientOpen: false
+    isModalOpen: false
 }
 
 export const ingredientReducer = (state = initialState, action) => {
@@ -76,10 +76,10 @@ export const ingredientReducer = (state = initialState, action) => {
                 ...state,
                 ingredientsInConstructor: []
             }
-        case TOGGLE_INGREDIENT_MODAL:
+        case TOGGLE_MODAL:
             return {
                 ...state,
-                isModalIngredientOpen: action.payload
+                isModalOpen: action.payload
             }
         default:
             return state

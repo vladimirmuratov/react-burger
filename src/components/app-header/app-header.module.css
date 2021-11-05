@@ -1,58 +1,111 @@
 .wrapper {
-    /*z-index: 1;*/
-    /*position: sticky;
-    top: 0;*/
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    width: 100%;
 
-    display: grid;
-    grid-template-columns: [start] 1fr [lenta-start] 1fr [lenta-end] 2fr [account-start] 1fr [end];
+    display: flex;
     align-items: center;
-    justify-items: center;
-    gap: 8px;
+    justify-content: center;
+    gap: 200px;
+
+    max-width: 2583px;
 
     background: #1C1C21;
 
     padding: 16px 0;
 }
 
-.construct {
-    grid-column: start / lenta-start;
-    justify-self: flex-end;
+.wrapper__leftBlock {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 49px;
+    margin-left: -40px;
 }
 
-.feed {
-    grid-column: lenta-start / lenta-end;
-    justify-self: flex-start;
+.menuIcon {
+    display: none;
+    position: absolute;
+    top: 40%;
+    right: 40px;
+    cursor: pointer;
 }
 
-.logo {
-    grid-column: lenta-end / account-start;
-    justify-self: flex-start;
+.closeIcon{
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+
 }
 
-.account {
-    grid-column: account-start / end;
-    justify-self: flex-start;
+.closeIcon svg{
+    transition: all 0.8s ease 0s;
 }
 
-@media screen and (max-width: 950px) {
+.closeIcon:hover svg{
+    fill: red;
+}
+
+.menuIcon svg rect {
+    transition: all 0.8s ease 0s;
+}
+
+.menuIcon:hover svg rect {
+    fill: #F2F2F3;
+}
+
+.iconHidden {
+    display: none;
+}
+
+@media (max-width: 1200px) {
     .wrapper {
         display: flex;
         justify-content: center;
     }
 
-    .construct {
+    .wrapper__leftBlock {
         display: none;
     }
 
-    .feed {
+    .wrapper__account {
         display: none;
     }
 
-    .account {
-        display: none;
+    .menuIcon {
+        display: block;
     }
 
-    .logo {
-        grid-column: 1 / 2;
+    .mobileMenu {
+        box-sizing: border-box;
+        box-shadow: -2px 2px 10px 2px #282830;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        position: fixed;
+        top: 82px;
+        right: 0;
+        z-index: 10;
+        background: #1c1c21;
+        padding: 40px 40px 20px 10px;
+    }
+
+    .mobileMenu a{
+        font-family: "JetBrains Mono", sans-serif;
+        font-size: 16px;
+        line-height: 24px;
+        color: #8585AD;
+        transition: all 0.8s ease 0s;
+    }
+
+    .mobileMenu a:hover{
+        color: #F2F2F3;
+    }
+
+    .closeIcon{
+        display: block;
     }
 }

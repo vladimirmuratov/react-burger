@@ -1,0 +1,73 @@
+import React, {FC, useCallback, useEffect, useState} from "react";
+import style from './page-login.module.css';
+import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Link, useHistory, useLocation} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {postLoginData} from "../../services/user/actions";
+import {setCookie} from "../../services/utils";
+import {Preloader} from "../../components/preloader/preloader";
+import {TLocation} from "./page-login-types";
+
+export const LoginPage: FC = () => {
+    const history = useHistory()
+    const {state} = useLocation<TLocation>()
+
+    const dispatch = useDispatch()
+
+    const [form, setForm] = useState<{ email: string; password: string; }>({'email': '', 'password': ''})
+
+    const isAuth = useSelector((state: any) => state.user.isAuth)
+    const error = useSelector((state: any) => state.user.error)
+    const refreshToken = useSelector((state: any) => state.user.user.refreshToken)
+    const accessToken = useSelector((state: any) => state.user.user.accessToken)
+    const isLoading = useSelector((state: any) => state.user.isLoading)
+
+    useEffect(() => {
+        if (isAuth) {
+            refreshToken && localStorage.setItem('refreshToken', refreshToken)
+            accessToken && setCookie('accessToken', accessToken)
+            setForm({'email': '', 'password': ''})
+            const link = (state && state.from) || '/';
+            history.replace(link)
+        }
+    }, [isAuth, refreshToken, accessToken, history, state])
+
+    const onChange = (e: { preventDefault: () => void; target: { name: string; value: string; }; }) => {
+        e.preventDefault()
+        setForm({...form, [e.target.name]: e.target.value})
+    }
+
+    const clickHandler = useCallback(async () => {
+        if (form.email && form.password) {
+            await dispatch(postLoginData(form))
+        }
+    }, [dispatch, form])
+
+    return (
+        <div className={style.wrapper}>
+            <div className={style.content}>
+                <p className="text text_type_main-large">Вход</p>
+                {isLoading && <Preloader/>}
+                {error && <p className="text text_type_main-default" style={{color: 'red'}}>{error}</p>}
+                <div className={style.input}>
+                    <Input type="email" placeholder="Email" onChange={onChange} value={form.email} name="email"
+                           size="default"/>
+                </div>
+                <div className={style.input}>
+                    <PasswordInput name="password" onChange={onChange} value={form.password} size="default"/>
+                </div>
+                <div className={style.button}>
+                    <Button type="primary" size="medium" onClick={clickHandler}>Войти</Button>
+                </div>
+                <p className="text text_type_main-default text_color_inactive">
+                    Вы - новый пользователь?&nbsp;
+                    <Link to="/register">Зарегистрироваться</Link>
+                </p>
+                <p className="text text_type_main-default text_color_inactive mt-4">
+                    Забыли пароль?&nbsp;
+                    <Link to="/forgot-password">Восстановить пароль</Link>
+                </p>
+            </div>
+        </div>
+    )
+}

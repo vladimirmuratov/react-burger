@@ -1,24 +1,51 @@
-.wrapper {
-    width: 197px;
-    height: 56px;
+.font {
+    font-family: "JetBrains Mono", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+}
 
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-content: center;
+.wrapper {
+    padding: 0;
+
+    display: flex;
+    align-items: center;
     justify-content: center;
     gap: 9px;
 
     background-color: inherit;
     border: none;
     border-radius: 40px;
-    padding: 16px 20px;
 
     cursor: pointer;
 }
 
-.text {
-    font-family: "JetBrains Mono", sans-serif;
-    font-size: 16px;
-    line-height: 24px;
+.wrapper:hover {
+    color: #F2F2F3;
+}
+
+.wrapper:hover svg {
+    fill: #F2F2F3;
+}
+
+.link {
+    composes: font;
     color: #8585AD;
+    transition: all 0.8s ease 0s;
+}
+
+.link:hover {
+    color: #F2F2F3;
+}
+
+a {
+    text-decoration: none;
+}
+
+.activeLink {
+    composes: font;
+    color: #F2F2F3;
+}
+
+.icon svg {
+    transition: all 0.8s ease 0s;
 }

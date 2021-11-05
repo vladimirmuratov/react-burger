@@ -1,10 +1,9 @@
-import {CLEAR_ORDER, FINISH_REQUEST, PUT_ORDER_IDS_INGREDIENTS, START_REQUEST, TOGGLE_ORDER_MODAL} from "./actions";
+import {CLEAR_ORDER, FINISH_REQUEST, PUT_ORDER_IDS_INGREDIENTS, START_REQUEST} from "./actions";
 
 
 const initialState = {
     order: {},
     orderNum: null,
-    isModalOrderOpen: false
 }
 
 export const orderReducer = (state = initialState, action) => {
@@ -28,11 +27,6 @@ export const orderReducer = (state = initialState, action) => {
                 ...state,
                 order: {},
                 orderNum: null
-            }
-        case TOGGLE_ORDER_MODAL:
-            return {
-                ...state,
-                isModalOrderOpen: action.payload
             }
         default:
             return state

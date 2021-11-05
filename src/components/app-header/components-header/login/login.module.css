@@ -1,34 +1,53 @@
-.wrapper{
+.font {
+    font-family: "JetBrains Mono", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.wrapper {
+    padding: 0;
+
     display: flex;
-    justify-items: center;
     align-items: center;
-    gap: 10px;
-    margin-left: 40px;
+    justify-content: center;
+    gap: 9px;
+
     background-color: inherit;
     border: none;
+    border-radius: 40px;
+
     cursor: pointer;
+
+    transition: all 0.8s ease 0s;
 }
 
-.text {
-    font-family: "JetBrains Mono", sans-serif;
-    font-size: 16px;
-    line-height: 24px;
+.wrapper:hover {
+    color: #F2F2F3;
+}
+
+.wrapper:hover svg {
+    fill: #F2F2F3;
+}
+
+.link {
+    composes: font;
     color: #8585AD;
-    text-decoration: none;
+    transition: all 0.8s ease 0s;
 }
 
-.text:hover{
-    font-family: "JetBrains Mono", sans-serif;
-    font-size: 16px;
-    line-height: 24px;
-    text-decoration: none;
+.link:hover {
     color: #F2F2F3;
 }
 
-.activeLink{
-    font-family: "JetBrains Mono", sans-serif;
-    font-size: 16px;
-    line-height: 24px;
+a {
     text-decoration: none;
+}
+
+.activeLink {
+    composes: font;
     color: #F2F2F3;
+}
+
+.icon svg {
+    transition: all 0.8s ease 0s;
 }
