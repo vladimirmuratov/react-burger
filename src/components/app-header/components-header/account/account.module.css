@@ -41,12 +41,12 @@
     color: #F2F2F3;
 }
 
-.block{
+.feedInfo_block{
     display: flex;
     flex-direction: column;
 }
 
-.block:hover span{
+.feedInfo_block:hover span{
     color: #F2F2F3;
 }
 

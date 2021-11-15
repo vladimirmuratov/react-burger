@@ -1,0 +1,13 @@
+.orderList_wrapper{
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+.orderList_wrapper::-webkit-scrollbar {
+    width: 8px;
+    background-color: #2f2f37;
+}
+
+.orderList_wrapper::-webkit-scrollbar-thumb {
+    background-color: #8585ad;
+}

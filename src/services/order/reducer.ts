@@ -1,12 +1,17 @@
-import {CLEAR_ORDER, FINISH_REQUEST, PUT_ORDER_IDS_INGREDIENTS, START_REQUEST} from "./actions";
+import {TOrderActions} from "./types";
+import {CLEAR_ORDER, FINISH_REQUEST, PUT_ORDER_IDS_INGREDIENTS, START_REQUEST} from "./constants";
 
-
-const initialState = {
-    order: {},
-    orderNum: null,
+type TOrderState = {
+    order: {};
+    orderNum: number;
 }
 
-export const orderReducer = (state = initialState, action) => {
+const initialState: TOrderState = {
+    order: {},
+    orderNum: 0,
+}
+
+export const orderReducer = (state = initialState, action: TOrderActions): TOrderState => {
     switch (action.type) {
         case START_REQUEST:
             return {
@@ -26,7 +31,7 @@ export const orderReducer = (state = initialState, action) => {
             return {
                 ...state,
                 order: {},
-                orderNum: null
+                orderNum: 0
             }
         default:
             return state

@@ -2,16 +2,16 @@ import React, {FC, useEffect, useRef, useState} from "react";
 import style from './page-profile.module.css';
 import {SideBar} from "../../components/sidebar/sidebar";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
 import {clearSuccessUpdateFlag, getProfileData, updateProfileData} from "../../services/user/actions";
 import {Preloader} from "../../components/preloader/preloader";
+import {useDispatch, useSelector} from "../../services/hooks";
 
 export const ProfilePage: FC = () => {
     const dispatch = useDispatch()
-    const error = useSelector((state: any) => state.user.error)
-    const successUpdate = useSelector((state: any) => state.user.successUpdate)
-    const profile = useSelector((state: any) => state.user.profile)
-    const isLoading = useSelector((state: any) => state.user.isLoading)
+    const {error} = useSelector((state) => state.user)
+    const {successUpdate} = useSelector((state) => state.user)
+    const {profile} = useSelector((state) => state.user)
+    const {isLoading} = useSelector((state) => state.user)
 
     const [form, setForm] = useState<{ name: string | ''; email: string | ''; password: string | ''; }>({
         'name': '',
@@ -94,7 +94,7 @@ export const ProfilePage: FC = () => {
             <div>
                 <SideBar/>
             </div>
-            <div className={style.form}>
+            <div className={style.wrapper_form}>
                 {isLoading
                     ? <div className={style.loader}>
                         <Preloader/>

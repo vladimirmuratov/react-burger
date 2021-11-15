@@ -9,6 +9,7 @@
     align-content: center;
     justify-content: center;
     overflow: auto;
+    z-index: 999;
 
     background-color: rgba(192,192,192, 0.7);
 }

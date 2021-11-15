@@ -1,12 +1,11 @@
-.wrapper{
+.wrapper {
     display: grid;
-    grid-template-columns: auto 1fr;
-    justify-content: flex-start;
-
-    margin: 100px 400px 0 100px;
+    grid-template-columns: 1fr 2fr;
+    justify-content: center;
+    align-items: center;
 }
 
-.form{
+.wrapper_form {
     margin-left: 80px;
 
     display: grid;
@@ -16,10 +15,10 @@
     gap: 24px;
 }
 
-.loader{
+.loader {
     margin-left: 135px;
 }
 
-.blockButton{
+.blockButton {
     margin-left: 60px;
 }

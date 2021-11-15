@@ -1,5 +1,5 @@
-import {TItemWithIndex} from "../../types";
+import {TItem} from "../../types";
 
 export type TProps = {
-    ingredient: TItemWithIndex
+    ingredient: TItem;
 }

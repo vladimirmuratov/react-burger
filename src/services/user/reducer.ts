@@ -1,3 +1,4 @@
+import {TUserActions} from "./types";
 import {
     CHANGE_FORGOT_FORM,
     CLEAR_MESSAGE,
@@ -7,26 +8,33 @@ import {
     GET_PROFILE_SUCCESS,
     LOGIN_FAILED,
     LOGIN_START,
-    LOGIN_SUCCESS,
-    LOGOUT_FAILED,
+    LOGIN_SUCCESS, LOGOUT_FAILED,
     LOGOUT_START,
     LOGOUT_SUCCESS,
     REGISTER_FAILED,
     REGISTER_START,
-    REGISTER_SUCCESS,
-    RESET_PASSWORD_FAILED,
+    REGISTER_SUCCESS, RESET_PASSWORD_FAILED,
     RESET_PASSWORD_START,
-    RESET_PASSWORD_SUCCESS,
-    SAVE_RESET_PASSWORD_FAILED,
-    SAVE_RESET_PASSWORD_START,
-    SAVE_RESET_PASSWORD_SUCCESS,
+    RESET_PASSWORD_SUCCESS, SAVE_RESET_PASSWORD_FAILED, SAVE_RESET_PASSWORD_START, SAVE_RESET_PASSWORD_SUCCESS,
     UPDATE_PROFILE_FAILED,
     UPDATE_PROFILE_START,
-    UPDATE_PROFILE_SUCCESS,
-} from "./actions";
+    UPDATE_PROFILE_SUCCESS
+} from "./constants";
 
 
-const initialState = {
+type TUserState = {
+    user: any;
+    isAuth: boolean;
+    error: string | '';
+    profile: any;
+    message: string | '';
+    successUpdate: boolean;
+    isLoading: boolean;
+    isForgotEmailForm: boolean;
+}
+
+
+const initialState: TUserState = {
     user: {},
     isAuth: false,
     error: '',
@@ -37,7 +45,7 @@ const initialState = {
     isForgotEmailForm: false
 }
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action: TUserActions): TUserState => {
     switch (action.type) {
         case REGISTER_START:
             return {

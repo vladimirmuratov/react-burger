@@ -13,11 +13,15 @@ const URL_REFRESH_TOKEN = `${BASE_URL}/auth/token`;
 const URL_RESET_PASSWORD = `${BASE_URL}/password-reset`;
 const URL_SAVE_RESET_PASSWORD = `${BASE_URL}/password-reset/reset`;
 
+export const URL_WS = 'wss://norma.nomoreparties.space/orders';
+export const WS_ORDERS_ALL = `${URL_WS}/all`;
+export const WS_ORDERS_PROFILE = `${URL_WS}?token=`;
+
 const checkResponse = (res: Response) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err))
 }
 
-const updateTokenHeaders: any = () => ({
+const tokenHeaders: any = () => ({
     'Content-Type': 'application/json',
     authorization: getCookie('accessToken')
 })
@@ -31,9 +35,7 @@ export const postOrderRequest = (data: Array<string>) => {
     return fetch(URL_POST_ORDER, {
         method: 'POST',
         body: JSON.stringify({"ingredients": data}),
-        headers: {
-            'Content-Type': 'application/json'
-        }
+        headers: tokenHeaders()
     })
         .then(checkResponse)
 }
@@ -42,9 +44,7 @@ export const registerUserRequest = (data: { name: string | ''; email: string | '
     return fetch(URL_REGISTER_USER, {
         method: 'POST',
         body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        }
+        headers: tokenHeaders()
     })
         .then(checkResponse)
 }
@@ -66,7 +66,7 @@ export const getUserProfileRequest = () => {
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
-        headers: updateTokenHeaders(),
+        headers: tokenHeaders(),
         redirect: 'follow',
         referrerPolicy: 'no-referrer'
     })
@@ -80,7 +80,7 @@ export const updateUserProfileRequest = (data: { name: string | ''; email: strin
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
-        headers: updateTokenHeaders(),
+        headers: tokenHeaders(),
         redirect: 'follow',
         referrerPolicy: 'no-referrer'
     })

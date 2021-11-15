@@ -2,14 +2,12 @@ import React, {FC, useCallback, useEffect, useState} from "react";
 import styles from './burger-constructor.module.css';
 import {Button, ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {OrderDetails} from "../order-details/order-details";
-import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
 import {
     addIngredientInConstructor,
     clearConstructor,
     deleteIngredientInConstructor,
     incrementCount,
-    openModal,
     updateConstructor
 } from "../../services/ingredients/actions";
 import {DraggableConstructorCard} from "../draggable-constructor-card/draggable-constructor-card";
@@ -18,20 +16,22 @@ import {clearOrder, postOrderData} from "../../services/order/actions";
 import {useHistory} from 'react-router-dom';
 import {TItem} from "../../types";
 import {getProfileData} from "../../services/user/actions";
+import {useDispatch, useSelector} from "../../services/hooks";
+import {toggleModal} from "../../services/modal/actions";
+import {Preloader} from "../preloader/preloader";
 
 
 export const BurgerConstructor: FC = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const data = useSelector((state: any) => state.burger.ingredientsInConstructor)
-    const orderNum = useSelector((state: any) => state.order.orderNum)
-    const isAuth = useSelector((state: any) => state.user.isAuth)
+    const data = useSelector((state) => state.burger.ingredientsInConstructor)
+    const {orderNum} = useSelector((state) => state.order)
+    const {isAuth} = useSelector((state) => state.user)
 
-    const bun: Array<TItem> = data.length && data.filter((item: TItem) => item.type === 'bun')
-    const ingredients: Array<TItem> = data.length && data.filter((item: TItem) => item.type !== 'bun')
-    const isVisibleModal = useSelector((state: any) => state.burger.isModalOpen)
-
+    const bun: any = data.length && data.filter((item: TItem) => item.type === 'bun')
+    const ingredients: any = data.length && data.filter((item: TItem) => item.type !== 'bun')
+    const {isOpenModal} = useSelector(state => state.modal)
     const [total, setTotal] = useState<number>(0)
 
     const refreshToken = localStorage.getItem('refreshToken')
@@ -63,7 +63,7 @@ export const BurgerConstructor: FC = () => {
     const moveCard = useCallback((dragIndex, hoverIndex) => {
         const newCards = [...data.filter((item: TItem) => item.type !== 'bun')];
         newCards.splice(hoverIndex, 0, newCards.splice(dragIndex, 1)[0]);
-        if (bun.length) {
+        if (bun.length > 0) {
             let data = bun.concat(newCards)
             dispatch(updateConstructor(data))
         } else {
@@ -72,7 +72,7 @@ export const BurgerConstructor: FC = () => {
     }, [data, bun, dispatch])
 
     useEffect(() => {
-        if(refreshToken){
+        if (refreshToken) {
             dispatch(getProfileData())
         }
     }, [dispatch, refreshToken])
@@ -87,22 +87,22 @@ export const BurgerConstructor: FC = () => {
         dispatch(incrementCount(item._id))
     }
 
-    const openHandler = () => {
+    const makeOrder = () => {
         if (!isAuth) {
             return history.replace({pathname: '/login'})
         }
 
-        const arrIds: string[] = []
+        const arrIds: Array<string> = []
         data.map((item: TItem) => arrIds.push(item._id))
         dispatch(postOrderData(arrIds))
-        dispatch(openModal(true))
+        dispatch(toggleModal(true))
     }
 
-    const closeHandler = () => {
-        dispatch(openModal(false))
+    const closeHandler = useCallback(() => {
+        dispatch(toggleModal(false))
         dispatch(clearOrder())
         dispatch(clearConstructor())
-    }
+    }, [dispatch])
 
     const deleteHandler = (id: number) => {
         dispatch(deleteIngredientInConstructor(id))
@@ -110,7 +110,7 @@ export const BurgerConstructor: FC = () => {
 
     const modal = (
         <Modal onClose={closeHandler}>
-            <OrderDetails number={orderNum && orderNum}/>
+            <OrderDetails number={orderNum ? orderNum : <Preloader/>}/>
         </Modal>
     )
 
@@ -168,7 +168,7 @@ export const BurgerConstructor: FC = () => {
                         : <></>}
                     {bun.length
                         ? (
-                            <Button type={isAuth ? "primary" : "secondary"} size="large" onClick={openHandler}>
+                            <Button type={isAuth ? "primary" : "secondary"} size="large" onClick={makeOrder}>
                                 {isAuth ? 'Оформить заказ' : 'Войти'}
                             </Button>
                         )
@@ -176,7 +176,7 @@ export const BurgerConstructor: FC = () => {
                     }
                 </div>
             </section>
-            {isVisibleModal && modal}
+            {isOpenModal && modal}
         </>
     )
 }

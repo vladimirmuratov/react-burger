@@ -2,7 +2,7 @@ html{
     scroll-behavior: smooth;
 }
 
-.block {
+.feedInfo_block {
     display: grid;
     grid-template-columns: 1fr;
     justify-content: center;

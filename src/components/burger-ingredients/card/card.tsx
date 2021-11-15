@@ -1,15 +1,16 @@
 import React, {FC} from "react";
 import styles from './card.module.css';
 import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import {useDispatch, useSelector} from "react-redux";
-import {addCurrentIngredient, openModal} from "../../../services/ingredients/actions";
+import {addCurrentIngredient} from "../../../services/ingredients/actions";
 import {useDrag} from "react-dnd";
 import {Link, useLocation} from "react-router-dom";
 import {TProps} from "./card-types";
 import {TItem} from "../../../types";
+import {useDispatch, useSelector} from "../../../services/hooks";
+import {toggleModal} from "../../../services/modal/actions";
 
 export const Card: FC<TProps> = ({product}) => {
-    const data = useSelector((state: any) => state.burger.ingredientsInConstructor)
+    const data = useSelector((state) => state.burger.ingredientsInConstructor)
     const totalCount: number = data.length && data.filter((item: TItem) => item._id === product._id).reduce((accum: number, item: TItem) => accum + item.count, 0)
     const dispatch = useDispatch()
 
@@ -23,7 +24,7 @@ export const Card: FC<TProps> = ({product}) => {
 
     const onOpenModal = () => {
         dispatch(addCurrentIngredient(product))
-        dispatch(openModal(true))
+        dispatch(toggleModal(true))
     }
 
     return (

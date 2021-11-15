@@ -2,9 +2,9 @@ import React, {FC, useCallback, useEffect, useState} from "react";
 import style from './page-reset-password.module.css';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useHistory} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {clearMessage, saveResetPassword} from "../../services/user/actions";
 import {Preloader} from "../../components/preloader/preloader";
+import {useDispatch, useSelector} from "../../services/hooks";
 
 export const ResetPasswordPage: FC = () => {
     const history = useHistory()
@@ -12,11 +12,11 @@ export const ResetPasswordPage: FC = () => {
 
     const [form, setForm] = useState<{ token: string | ''; password: string | ''; }>({'token': '', 'password': ''})
 
-    const isAuth = useSelector((state: any) => state.user.isAuth)
-    const message = useSelector((state: any) => state.user.message)
-    const error = useSelector((state: any) => state.user.error)
-    const isLoading = useSelector((state: any) => state.user.isLoading)
-    const isForgotEmailForm = useSelector((state: any) => state.user.isForgotEmailForm)
+    const {isAuth} = useSelector((state) => state.user)
+    const {message} = useSelector((state) => state.user)
+    const {error} = useSelector((state) => state.user)
+    const {isLoading} = useSelector((state) => state.user)
+    const {isForgotEmailForm} = useSelector((state) => state.user)
 
     if (!isForgotEmailForm) {
         history.replace({pathname: '/forgot-password'})

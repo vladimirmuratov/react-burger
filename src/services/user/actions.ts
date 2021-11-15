@@ -9,43 +9,38 @@ import {
     updateUserProfileRequest
 } from "../../api/api";
 import {setCookie} from "../utils";
+import {
+    IClearMessageAction,
+    IClearSuccessUpdateFlagAction,
+    IClearUserDataAction,
+    IForgotFormFullAction, TLoginForm,
+    TForm, TResetForm
+} from "./types";
+import {
+    CHANGE_FORGOT_FORM,
+    CLEAR_MESSAGE,
+    CLEAR_SUCCESS_FLAG,
+    CLEAR_USER_DATA,
+    GET_PROFILE_START,
+    GET_PROFILE_SUCCESS,
+    LOGIN_FAILED,
+    LOGIN_START,
+    LOGIN_SUCCESS,
+    LOGOUT_FAILED,
+    LOGOUT_START,
+    LOGOUT_SUCCESS,
+    REGISTER_FAILED,
+    REGISTER_START,
+    REGISTER_SUCCESS, RESET_PASSWORD_FAILED,
+    RESET_PASSWORD_START,
+    RESET_PASSWORD_SUCCESS, SAVE_RESET_PASSWORD_FAILED, SAVE_RESET_PASSWORD_START, SAVE_RESET_PASSWORD_SUCCESS,
+    UPDATE_PROFILE_FAILED,
+    UPDATE_PROFILE_START,
+    UPDATE_PROFILE_SUCCESS
+} from "./constants";
+import {AppDispatch, AppThunk} from "../store";
 
-export const REGISTER_START = 'REGISTER_START';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const REGISTER_FAILED = 'REGISTER_FAILED';
-
-export const LOGIN_START = 'LOGIN_START';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILED = 'LOGIN_FAILED';
-
-export const GET_PROFILE_START = 'GET_PROFILE_START';
-export const GET_PROFILE_SUCCESS = 'GET_PROFILE_SUCCESS';
-
-export const UPDATE_PROFILE_START = 'UPDATE_PROFILE_START';
-export const UPDATE_PROFILE_SUCCESS = 'UPDATE_PROFILE_SUCCESS';
-export const UPDATE_PROFILE_FAILED = 'UPDATE_PROFILE_FAILED';
-
-export const LOGOUT_START = 'LOGOUT_START';
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
-export const LOGOUT_FAILED = 'LOGOUT_FAILED';
-
-export const RESET_PASSWORD_START = 'RESET_PASSWORD_START';
-export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
-export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED';
-
-export const SAVE_RESET_PASSWORD_START = 'SAVE_RESET_PASSWORD_START';
-export const SAVE_RESET_PASSWORD_SUCCESS = 'SAVE_RESET_PASSWORD_SUCCESS';
-export const SAVE_RESET_PASSWORD_FAILED = 'SAVE_RESET_PASSWORD_FAILED';
-
-export const CLEAR_USER_DATA = 'CLEAR_USER_DATA';
-
-export const CLEAR_SUCCESS_FLAG = 'CLEAR_SUCCESS_FLAG';
-
-export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
-
-export const CHANGE_FORGOT_FORM = 'CHANGE_FORGOT_FORM';
-
-export const postRegisterData = data => async dispatch => {
+export const postRegisterData: AppThunk = (data: TForm) => async (dispatch: AppDispatch) => {
     let res
 
     dispatch({
@@ -58,7 +53,7 @@ export const postRegisterData = data => async dispatch => {
             type: REGISTER_SUCCESS,
             payload: res
         })
-    } catch (e) {
+    } catch (e: any) {
         dispatch({
             type: REGISTER_FAILED,
             payload: e.message
@@ -66,7 +61,7 @@ export const postRegisterData = data => async dispatch => {
     }
 }
 
-export const postLoginData = data => async dispatch => {
+export const postLoginData: AppThunk = (data: TLoginForm) => async (dispatch: AppDispatch) => {
     let res
 
     dispatch({
@@ -80,7 +75,7 @@ export const postLoginData = data => async dispatch => {
             payload: res
         })
 
-    } catch (e) {
+    } catch (e: any) {
         dispatch({
             type: LOGIN_FAILED,
             payload: e.message
@@ -88,7 +83,7 @@ export const postLoginData = data => async dispatch => {
     }
 }
 
-export const getProfileData = () => (dispatch) => {
+export const getProfileData: AppThunk = () => (dispatch: AppDispatch) => {
 
     dispatch({
         type: GET_PROFILE_START
@@ -104,12 +99,13 @@ export const getProfileData = () => (dispatch) => {
         })
         .catch(res => {
             if (res.message === 'jwt expired') {
+                // @ts-ignore
                 dispatch(refreshToken(getProfileData()))
             }
         })
 }
 
-const refreshToken = (afterRefresh) => (dispatch) => {
+const refreshToken: AppThunk = (afterRefresh: any) => (dispatch: AppDispatch) => {
     refreshTokenRequest()
         .then(res => {
             localStorage.setItem('refreshToken', res.refreshToken)
@@ -118,7 +114,7 @@ const refreshToken = (afterRefresh) => (dispatch) => {
         })
 }
 
-export const updateProfileData = data => dispatch => {
+export const updateProfileData: AppThunk = (data: TForm) => (dispatch: AppDispatch) => {
 
     dispatch({
         type: UPDATE_PROFILE_START
@@ -135,11 +131,12 @@ export const updateProfileData = data => dispatch => {
             })
             .catch(res => {
                 if (res.message === 'jwt expired') {
-                    dispatch(refreshToken(updateProfileData()))
+                    // @ts-ignore
+                    dispatch(refreshToken(updateProfileData(data)))
                 }
             })
 
-    } catch (e) {
+    } catch (e: any) {
         dispatch({
             type: UPDATE_PROFILE_FAILED,
             payload: e.message
@@ -147,7 +144,7 @@ export const updateProfileData = data => dispatch => {
     }
 }
 
-export const logout = () => (dispatch) => {
+export const logout: AppThunk = () => (dispatch: AppDispatch) => {
 
     dispatch({
         type: LOGOUT_START
@@ -164,10 +161,11 @@ export const logout = () => (dispatch) => {
             })
             .catch(res => {
                 if (res.message === 'jwt expired') {
+                    // @ts-ignore
                     dispatch(refreshToken(logout()))
                 }
             })
-    } catch (e) {
+    } catch (e: any) {
         dispatch({
             type: LOGOUT_FAILED,
             payload: e.message
@@ -175,15 +173,15 @@ export const logout = () => (dispatch) => {
     }
 }
 
-export const clearUserData = () => ({
+export const clearUserData = (): IClearUserDataAction => ({
     type: CLEAR_USER_DATA
 })
 
-export const clearSuccessUpdateFlag = () => ({
+export const clearSuccessUpdateFlag = (): IClearSuccessUpdateFlagAction => ({
     type: CLEAR_SUCCESS_FLAG
 })
 
-export const resetPassword = (data) => async (dispatch) => {
+export const resetPassword: AppThunk = (data: string) => async (dispatch: AppDispatch) => {
     let res
 
     dispatch({
@@ -197,7 +195,7 @@ export const resetPassword = (data) => async (dispatch) => {
             payload: res.message
         })
 
-    } catch (e) {
+    } catch (e: any) {
         dispatch({
             type: RESET_PASSWORD_FAILED,
             payload: e.message
@@ -205,7 +203,7 @@ export const resetPassword = (data) => async (dispatch) => {
     }
 }
 
-export const saveResetPassword = data => async dispatch => {
+export const saveResetPassword: AppThunk = (data: TResetForm) => async (dispatch: AppDispatch) => {
     let res
 
     dispatch({
@@ -219,7 +217,7 @@ export const saveResetPassword = data => async dispatch => {
             payload: res.message
         })
 
-    } catch (e) {
+    } catch (e: any) {
         dispatch({
             type: SAVE_RESET_PASSWORD_FAILED,
             payload: e.message
@@ -227,10 +225,10 @@ export const saveResetPassword = data => async dispatch => {
     }
 }
 
-export const clearMessage = () => ({
+export const clearMessage = (): IClearMessageAction => ({
     type: CLEAR_MESSAGE
 })
 
-export const forgotFormFull = () => ({
+export const forgotFormFull = (): IForgotFormFullAction => ({
     type: CHANGE_FORGOT_FORM
 })

@@ -1,3 +1,5 @@
+import {TItem} from "../../types";
+import {TIngredientsActions} from "./types";
 import {
     ADD_CURRENT_INGREDIENT,
     ADD_INGREDIENT_IN_CONSTRUCTOR,
@@ -6,20 +8,26 @@ import {
     DELETE_INGREDIENT_IN_CONSTRUCTOR,
     END_LOADING,
     INCREMENT_COUNT,
-    START_LOADING, TOGGLE_MODAL,
+    START_LOADING,
     UPDATE_MOVE_CARDS
-} from "./actions";
+} from "./constants";
 
-
-const initialState = {
-    ingredients: [],
-    ingredientsInConstructor: [],
-    currentIngredient: {},
-    isLoading: false,
-    isModalOpen: false
+type TIngredientsState = {
+    ingredients: Array<TItem>;
+    ingredientsInConstructor: Array<TItem>;
+    currentIngredient: TItem;
+    isLoading: boolean;
 }
 
-export const ingredientReducer = (state = initialState, action) => {
+
+const initialState: TIngredientsState = {
+    ingredients: [],
+    ingredientsInConstructor: [],
+    currentIngredient: {} as TItem,
+    isLoading: false,
+}
+
+export const ingredientReducer = (state = initialState, action: TIngredientsActions): TIngredientsState => {
     switch (action.type) {
         case START_LOADING:
             return {
@@ -27,7 +35,7 @@ export const ingredientReducer = (state = initialState, action) => {
                 isLoading: true
             }
         case END_LOADING:
-            return {
+            return <TIngredientsState>{
                 ...state,
                 ingredients: action.payload,
                 isLoading: false
@@ -40,7 +48,7 @@ export const ingredientReducer = (state = initialState, action) => {
         case DELETE_CURRENT_INGREDIENT:
             return {
                 ...state,
-                currentIngredient: {}
+                currentIngredient: {} as TItem
             }
         case ADD_INGREDIENT_IN_CONSTRUCTOR:
             return {
@@ -67,7 +75,7 @@ export const ingredientReducer = (state = initialState, action) => {
                 ingredientsInConstructor: [...state.ingredientsInConstructor.filter(item => item.customId !== action.id)]
             }
         case UPDATE_MOVE_CARDS:
-            return {
+            return <TIngredientsState>{
                 ...state,
                 ingredientsInConstructor: action.payload
             }
@@ -75,11 +83,6 @@ export const ingredientReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ingredientsInConstructor: []
-            }
-        case TOGGLE_MODAL:
-            return {
-                ...state,
-                isModalOpen: action.payload
             }
         default:
             return state

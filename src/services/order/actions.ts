@@ -1,13 +1,9 @@
 import {postOrderRequest} from "../../api/api";
+import {AppDispatch, AppThunk} from "../store";
+import {CLEAR_ORDER, FINISH_REQUEST, PUT_ORDER_IDS_INGREDIENTS, START_REQUEST} from "./constants";
+import {IClearOrderAction} from "./types";
 
-export const START_REQUEST = 'START_REQUEST';
-export const FINISH_REQUEST = 'FINISH_REQUEST';
-
-export const PUT_ORDER_IDS_INGREDIENTS = 'PUT_ORDER_IDS_INGREDIENTS';
-
-export const CLEAR_ORDER = 'CLEAR_ORDER';
-
-export const postOrderData = (data) => async (dispatch) => {
+export const postOrderData: AppThunk = (data: Array<string>) => async (dispatch: AppDispatch) => {
     let response
 
     dispatch({
@@ -28,6 +24,6 @@ export const postOrderData = (data) => async (dispatch) => {
     }
 }
 
-export const clearOrder = () => ({
+export const clearOrder = (): IClearOrderAction => ({
     type: CLEAR_ORDER
 })

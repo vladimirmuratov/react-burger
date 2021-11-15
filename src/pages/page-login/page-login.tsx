@@ -2,11 +2,10 @@ import React, {FC, useCallback, useEffect, useState} from "react";
 import style from './page-login.module.css';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useHistory, useLocation} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {postLoginData} from "../../services/user/actions";
 import {setCookie} from "../../services/utils";
-import {Preloader} from "../../components/preloader/preloader";
 import {TLocation} from "./page-login-types";
+import {useDispatch, useSelector} from "../../services/hooks";
 
 export const LoginPage: FC = () => {
     const history = useHistory()
@@ -16,11 +15,10 @@ export const LoginPage: FC = () => {
 
     const [form, setForm] = useState<{ email: string; password: string; }>({'email': '', 'password': ''})
 
-    const isAuth = useSelector((state: any) => state.user.isAuth)
-    const error = useSelector((state: any) => state.user.error)
-    const refreshToken = useSelector((state: any) => state.user.user.refreshToken)
-    const accessToken = useSelector((state: any) => state.user.user.accessToken)
-    const isLoading = useSelector((state: any) => state.user.isLoading)
+    const {isAuth} = useSelector((state) => state.user)
+    const {error} = useSelector((state) => state.user)
+    const {refreshToken} = useSelector((state) => state?.user?.user)
+    const {accessToken} = useSelector((state) => state?.user?.user)
 
     useEffect(() => {
         if (isAuth) {
@@ -47,7 +45,6 @@ export const LoginPage: FC = () => {
         <div className={style.wrapper}>
             <div className={style.content}>
                 <p className="text text_type_main-large">Вход</p>
-                {isLoading && <Preloader/>}
                 {error && <p className="text text_type_main-default" style={{color: 'red'}}>{error}</p>}
                 <div className={style.input}>
                     <Input type="email" placeholder="Email" onChange={onChange} value={form.email} name="email"

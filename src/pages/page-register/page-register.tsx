@@ -2,9 +2,9 @@ import React, {FC, useCallback, useEffect, useState} from "react";
 import style from "./page-register.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useHistory} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {postRegisterData} from "../../services/user/actions";
 import {setCookie} from "../../services/utils";
+import {useDispatch, useSelector} from "../../services/hooks";
 
 export const RegisterPage: FC = () => {
     const dispatch = useDispatch()
@@ -16,10 +16,10 @@ export const RegisterPage: FC = () => {
         'password': ''
     })
 
-    const error = useSelector((state: any) => state.user.error)
-    const isAuth = useSelector((state: any) => state.user.isAuth)
-    const refreshToken = useSelector((state: any) => state.user.user.refreshToken)
-    const accessToken = useSelector((state: any) => state.user.user.accessToken)
+    const {error} = useSelector((state) => state.user)
+    const {isAuth} = useSelector((state) => state.user)
+    const {refreshToken} = useSelector((state) => state.user?.user)
+    const {accessToken} = useSelector((state) => state.user?.user)
 
     useEffect(() => {
         if (isAuth) {
