@@ -22,15 +22,20 @@ import {toggleModal} from "../../services/modal/actions";
 export const SwitchModal: FC = () => {
     const history = useHistory()
     let location = useLocation<ILocationState>()
-    const action = history.action ==='PUSH' || history.action ==='REPLACE'
+    const action = history.action === 'PUSH' || history.action === 'REPLACE'
     // let background = action && location.state && location.state.background
     let background = action && location?.state?.background
 
     const dispatch = useDispatch()
 
-    const handleModalClose = useCallback(() => {
+    const onModalIngDetailClose = useCallback(() => {
         dispatch(toggleModal(false))
         dispatch(deleteCurrentIngredient())
+        history.goBack()
+    }, [dispatch, history])
+
+    const onModalClose = useCallback(() => {
+        dispatch(toggleModal(false))
         history.goBack()
     }, [dispatch, history])
 
@@ -58,26 +63,26 @@ export const SwitchModal: FC = () => {
             </Switch>
             {background && (
                 <>
-                <Route
-                    path='/ingredients/:id'
-                    children={
-                        <Modal title="Детали ингредиента" onClose={handleModalClose}>
-                            <IngredientDetails/>
-                        </Modal>
-                    }
-                />
-                <Route
-                path='/feed/:id'
-                children={
-                <Modal onClose={handleModalClose}>
-                    <FeedCard/>
-                </Modal>
-            }
-                />
+                    <Route
+                        path='/ingredients/:id'
+                        children={
+                            <Modal title="Детали ингредиента" onClose={onModalIngDetailClose}>
+                                <IngredientDetails/>
+                            </Modal>
+                        }
+                    />
+                    <Route
+                        path='/feed/:id'
+                        children={
+                            <Modal onClose={onModalClose}>
+                                <FeedCard/>
+                            </Modal>
+                        }
+                    />
                     <Route
                         path='/profile/orders/:id'
                         children={
-                            <Modal onClose={handleModalClose}>
+                            <Modal onClose={onModalClose}>
                                 <ProfileOrderCard/>
                             </Modal>
                         }

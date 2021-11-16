@@ -40,7 +40,8 @@ export const AppHeader: FC = () => {
                 <NavLink exact={true} to="/" onClick={() => setIsOpenMobileMenu(false)}>Конструктор</NavLink>
                 <NavLink exact={true} to="/feed" onClick={() => setIsOpenMobileMenu(false)}>Лента</NavLink>
                 {isAuth
-                ? (<NavLink exact={true} to="/profile" onClick={() => setIsOpenMobileMenu(false)}>Личный кабинет</NavLink>)
+                    ? (<NavLink exact={true} to="/profile" onClick={() => setIsOpenMobileMenu(false)}>Личный
+                        кабинет</NavLink>)
                     : (<NavLink exact={true} to="/login" onClick={() => setIsOpenMobileMenu(false)}>Войти</NavLink>)
                 }
             </div>

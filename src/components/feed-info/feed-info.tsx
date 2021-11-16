@@ -1,4 +1,4 @@
-import React, {FC, useCallback} from "react";
+import React, {FC, useCallback, useMemo} from "react";
 import style from './feed-info.module.css';
 import {useSelector} from "../../services/hooks";
 import {TOrder} from "../../services/feed/types";
@@ -9,7 +9,9 @@ export const FeedInfo: FC = () => {
     const orderReady: Array<TOrder> = []
     const orderInProgress: Array<TOrder> = []
 
-    orders.forEach(item => item.status === 'done' ? orderReady.push(item) : orderInProgress.push(item))
+    useMemo(() => {
+        orders?.forEach(item => item.status === 'done' ? orderReady.push(item) : orderInProgress.push(item))
+    }, [orderInProgress, orderReady, orders])
 
     const showNumbers = useCallback((array: Array<TOrder>, styleClass) => {
         return (

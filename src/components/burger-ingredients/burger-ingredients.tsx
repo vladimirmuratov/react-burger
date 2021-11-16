@@ -38,7 +38,7 @@ export const BurgerIngredients: FC = () => {
     }, [data])
 
     const getProd = (type: string, setter: Function): void => {
-        data && data.map((item: TItem) => (item.type === type) && setter((prevState: Array<TItem>) => [
+        data?.map((item: TItem) => (item.type === type) && setter((prevState: Array<TItem>) => [
             ...prevState,
             item
         ]))

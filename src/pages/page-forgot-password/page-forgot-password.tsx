@@ -43,7 +43,8 @@ export const ForgotPasswordPage: FC = () => {
         setEmailVal(e.target.value)
     }
 
-    const clickHandler = useCallback(async () => {
+    const onSubmitHandler = useCallback(async (e) => {
+        e.preventDefault()
         if (emailVal) {
             await dispatch(resetPassword(emailVal))
             history.push({state: {pathname: history.location.pathname, email: emailVal}})
@@ -53,7 +54,7 @@ export const ForgotPasswordPage: FC = () => {
 
     return (
         <div className={style.wrapper}>
-            <div className={style.content}>
+            <form className={style.content} onSubmit={onSubmitHandler}>
                 <p className="text text_type_main-medium">Восстановление пароля</p>
                 {isLoading && <Preloader/>}
                 {message && <p className="text text_type_main-medium" style={{color: 'green'}}>{message}</p>}
@@ -63,13 +64,13 @@ export const ForgotPasswordPage: FC = () => {
                            size="default"/>
                 </div>
                 <div className={style.button}>
-                    <Button type="primary" size="medium" onClick={clickHandler}>Восстановить</Button>
+                    <Button type="primary" size="medium">Восстановить</Button>
                 </div>
                 <p className="text text_type_main-default text_color_inactive">
                     Вспомнили пароль?&nbsp;
                     <Link to="/login">Войти</Link>
                 </p>
-            </div>
+            </form>
         </div>
     )
 }

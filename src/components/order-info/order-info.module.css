@@ -4,6 +4,8 @@
     align-items: flex-start;
     padding: 20px;
     max-width: 640px;
+
+    margin-top: 86px;
 }
 
 .orderInfo_wrapper__number{

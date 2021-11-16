@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useRef, useState} from "react";
+import React, {FC, useCallback, useEffect, useRef, useState} from "react";
 import style from './page-profile.module.css';
 import {SideBar} from "../../components/sidebar/sidebar";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -29,7 +29,7 @@ export const ProfilePage: FC = () => {
     const passRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
-            dispatch(getProfileData())
+        dispatch(getProfileData())
     }, [dispatch])
 
     useEffect(() => {
@@ -51,35 +51,24 @@ export const ProfilePage: FC = () => {
         }
     }, [successUpdate, dispatch])
 
-    const changeHandler = (e: { preventDefault: () => void; target: { name: string; value: string; }; }) => {
+    const onChangeHandler = useCallback((e: { preventDefault: () => void; target: { name: string; value: string; }; }) => {
         e.preventDefault()
         setForm({...form, [e.target.name]: e.target.value})
         setIsChanged(true)
-    }
+    }, [form])
 
-    const iconClickHandlerName = (e: { preventDefault: () => void; }) => {
+    const onIconClickHandler = useCallback((setter, e: { preventDefault: () => void; }) => {
         e.preventDefault()
-        setIsDisabledName(false)
+        setter(false)
         setTimeout(() => nameRef.current && nameRef.current.focus(), 0)
-    }
+    }, [])
 
-    const iconClickHandlerEmail = (e: { preventDefault: () => void; }) => {
+    const onSubmitHandler = useCallback(async (e) => {
         e.preventDefault()
-        setIsDisabledEmail(false)
-        setTimeout(() => emailRef.current && emailRef.current.focus(), 0)
-    }
+        await dispatch(updateProfileData(form))
+    }, [dispatch, form])
 
-    const iconClickHandlerPass = (e: { preventDefault: () => void; }) => {
-        e.preventDefault()
-        setIsDisabledPass(false)
-        setTimeout(() => passRef.current && passRef.current.focus(), 0)
-    }
-
-    const saveHandler = () => {
-        dispatch(updateProfileData(form))
-    }
-
-    const prevDataHandler = () => {
+    const onPrevDataHandler = () => {
         setForm({
             ...form,
             name: profile.name ? profile.name : '',
@@ -94,7 +83,7 @@ export const ProfilePage: FC = () => {
             <div>
                 <SideBar/>
             </div>
-            <div className={style.wrapper_form}>
+            <form className={style.wrapper_form} onSubmit={onSubmitHandler}>
                 {isLoading
                     ? <div className={style.loader}>
                         <Preloader/>
@@ -105,8 +94,8 @@ export const ProfilePage: FC = () => {
                         <p className="text text_type_main-default ml-10" style={{color: 'green'}}>{successMessage}</p>}
                         <Input value={form.name}
                                name="name"
-                               onChange={changeHandler}
-                               onIconClick={iconClickHandlerName}
+                               onChange={onChangeHandler}
+                               onIconClick={(e) => onIconClickHandler(setIsDisabledName, e)}
                                onBlur={() => setIsDisabledName(true)}
                                type="text"
                                placeholder="Имя"
@@ -118,8 +107,8 @@ export const ProfilePage: FC = () => {
                         />
                         <Input value={form.email}
                                name="email"
-                               onChange={changeHandler}
-                               onIconClick={iconClickHandlerEmail}
+                               onChange={onChangeHandler}
+                               onIconClick={(e) => onIconClickHandler(setIsDisabledEmail, e)}
                                onBlur={() => setIsDisabledEmail(true)}
                                type="email"
                                placeholder="Логин"
@@ -131,8 +120,8 @@ export const ProfilePage: FC = () => {
                         />
                         <Input value={form.password}
                                name="password"
-                               onChange={changeHandler}
-                               onIconClick={iconClickHandlerPass}
+                               onChange={onChangeHandler}
+                               onIconClick={(e) => onIconClickHandler(setIsDisabledPass, e)}
                                onBlur={() => setIsDisabledPass(true)}
                                type="password"
                                ref={passRef}
@@ -144,13 +133,13 @@ export const ProfilePage: FC = () => {
                         />
                         {isChanged &&
                         <div className={style.blockButton}>
-                            <Button type="secondary" size="small" onClick={prevDataHandler}>Отменить</Button>
-                            <Button type="primary" size="small" onClick={saveHandler}>Сохранить</Button>
+                            <Button type="secondary" size="small" onClick={onPrevDataHandler}>Отменить</Button>
+                            <Button type="primary" size="small">Сохранить</Button>
                         </div>
                         }
                     </>
                 }
-            </div>
+            </form>
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, useMemo} from "react";
 import styles from './card.module.css';
 import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {addCurrentIngredient} from "../../../services/ingredients/actions";
@@ -11,7 +11,9 @@ import {toggleModal} from "../../../services/modal/actions";
 
 export const Card: FC<TProps> = ({product}) => {
     const data = useSelector((state) => state.burger.ingredientsInConstructor)
-    const totalCount: number = data.length && data.filter((item: TItem) => item._id === product._id).reduce((accum: number, item: TItem) => accum + item.count, 0)
+    const totalCount = useMemo(() => {
+        return data?.filter((item: TItem) => item._id === product._id).reduce((accum: number, item: TItem) => accum + item.count, 0)
+    }, [data, product._id])
     const dispatch = useDispatch()
 
     let location = useLocation();

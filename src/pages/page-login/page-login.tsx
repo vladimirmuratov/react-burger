@@ -35,7 +35,8 @@ export const LoginPage: FC = () => {
         setForm({...form, [e.target.name]: e.target.value})
     }
 
-    const clickHandler = useCallback(async () => {
+    const onSubmitHandler = useCallback(async (e) => {
+        e.preventDefault()
         if (form.email && form.password) {
             await dispatch(postLoginData(form))
         }
@@ -43,7 +44,7 @@ export const LoginPage: FC = () => {
 
     return (
         <div className={style.wrapper}>
-            <div className={style.content}>
+            <form className={style.content} onSubmit={onSubmitHandler}>
                 <p className="text text_type_main-large">Вход</p>
                 {error && <p className="text text_type_main-default" style={{color: 'red'}}>{error}</p>}
                 <div className={style.input}>
@@ -54,7 +55,7 @@ export const LoginPage: FC = () => {
                     <PasswordInput name="password" onChange={onChange} value={form.password} size="default"/>
                 </div>
                 <div className={style.button}>
-                    <Button type="primary" size="medium" onClick={clickHandler}>Войти</Button>
+                    <Button type="primary" size="medium">Войти</Button>
                 </div>
                 <p className="text text_type_main-default text_color_inactive">
                     Вы - новый пользователь?&nbsp;
@@ -64,7 +65,7 @@ export const LoginPage: FC = () => {
                     Забыли пароль?&nbsp;
                     <Link to="/forgot-password">Восстановить пароль</Link>
                 </p>
-            </div>
+            </form>
         </div>
     )
 }

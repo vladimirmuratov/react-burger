@@ -1,6 +1,7 @@
 .orderList_wrapper{
     max-height: 400px;
     overflow-y: scroll;
+    min-height: 80vh;
 }
 
 .orderList_wrapper::-webkit-scrollbar {

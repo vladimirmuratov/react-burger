@@ -22,11 +22,13 @@ export const ProfileOrdersPage: FC = () => {
     }, [dispatch, accessToken])
 
     return (
-        <div className={style.orderPageHistory_wrapper}>
+        <div className={style.pageProfileOrders_wrapper}>
             <div>
                 <SideBar/>
             </div>
-            <OrderList/>
+            <div className={style.pageProfileOrders_orderList}>
+                <OrderList/>
+            </div>
         </div>
     )
 }

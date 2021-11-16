@@ -3,7 +3,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-width: 100%;
+    max-width: 100vw;
+    min-height: 60%;
+    margin-top: 80px;
+    margin-bottom: 20px;
 }
 
 .feedPage_container {

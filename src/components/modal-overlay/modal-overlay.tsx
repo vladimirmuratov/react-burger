@@ -3,18 +3,20 @@ import styles from './modal-overlay.module.css';
 import ReactDOM from "react-dom";
 import {TProps} from "./modal-overlay-types";
 import {useSelector} from "../../services/hooks";
+import {useHistory} from "react-router-dom";
 
 const modalRoot = document.getElementById("modal") as HTMLFormElement;
 
 
 export const ModalOverlay: FC<TProps> = ({onClose, children}) => {
     const {isOpenModal} = useSelector(state => state.modal)
+    const history = useHistory()
 
     const handlerEscClick = useCallback((e: { key: string; }) => {
         if (e.key === "Escape") {
             onClose()
         }
-    }, [onClose, isOpenModal])
+    }, [onClose])
 
     const handleOverlayClick = useCallback((e: { target: any; currentTarget: any; }) => {
         if (e.target === e.currentTarget) {

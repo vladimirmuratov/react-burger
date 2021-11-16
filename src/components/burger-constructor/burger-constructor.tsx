@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useEffect, useState} from "react";
+import React, {FC, useCallback, useEffect, useMemo, useState} from "react";
 import styles from './burger-constructor.module.css';
 import {Button, ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {OrderDetails} from "../order-details/order-details";
@@ -25,12 +25,18 @@ export const BurgerConstructor: FC = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const data = useSelector((state) => state.burger.ingredientsInConstructor)
+    const {ingredientsInConstructor: data} = useSelector((state) => state.burger)
     const {orderNum} = useSelector((state) => state.order)
     const {isAuth} = useSelector((state) => state.user)
 
-    const bun: any = data.length && data.filter((item: TItem) => item.type === 'bun')
-    const ingredients: any = data.length && data.filter((item: TItem) => item.type !== 'bun')
+    const bun = useMemo(() => {
+        return data?.filter((item: TItem) => item.type === 'bun')
+    }, [data])
+
+    const ingredients = useMemo(() => {
+        return data?.filter((item: TItem) => item.type !== 'bun')
+    }, [data])
+
     const {isOpenModal} = useSelector(state => state.modal)
     const [total, setTotal] = useState<number>(0)
 
@@ -77,10 +83,13 @@ export const BurgerConstructor: FC = () => {
         }
     }, [dispatch, refreshToken])
 
-    useEffect(() => {
-        const sum = data.reduce((accum: number, item: TItem) => item.type === 'bun' ? accum + item.price * 2 : accum + item.price, 0)
-        setTotal(sum)
+    const sum = useMemo(() => {
+        return data?.reduce((accum: number, item: TItem) => item.type === 'bun' ? accum + item.price * 2 : accum + item.price, 0)
     }, [data])
+
+    useEffect(() => {
+        setTotal(sum)
+    }, [sum])
 
     const addItem = (item: TItem) => {
         dispatch(addIngredientInConstructor(item))
@@ -108,10 +117,18 @@ export const BurgerConstructor: FC = () => {
         dispatch(deleteIngredientInConstructor(id))
     }
 
-    const modal = (
+    const modalOrder = (
         <Modal onClose={closeHandler}>
             <OrderDetails number={orderNum ? orderNum : <Preloader/>}/>
         </Modal>
+    )
+
+    const modalWithPreloader = (
+        <div className={styles.waitModal}>
+            <Modal onClose={() => {}}>
+                <OrderDetails number={orderNum ? orderNum : <Preloader/>}/>
+            </Modal>
+        </div>
     )
 
     return (
@@ -130,8 +147,8 @@ export const BurgerConstructor: FC = () => {
                 </div>
                 <div className={`${styles.content} ${isHover && styles.activeBorder}`} ref={dropTargetItem}>
                     <div ref={dropTargetItem2}>
-                        {ingredients.length > 0
-                            ? ingredients && ingredients.map((item: TItem, index: number) => (
+                        {ingredients?.length > 0
+                            ? ingredients && ingredients?.map((item: TItem, index: number) => (
                             <DraggableConstructorCard
                                 key={index}
                                 item={item}
@@ -176,7 +193,10 @@ export const BurgerConstructor: FC = () => {
                     }
                 </div>
             </section>
-            {isOpenModal && modal}
+            {isOpenModal && orderNum
+                ? modalOrder
+                : (isOpenModal && !orderNum) && modalWithPreloader
+            }
         </>
     )
 }
