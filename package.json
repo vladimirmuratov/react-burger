@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.1.10",
     "@ya.praktikum/react-developer-burger-ui-components": "^1.5.0",
     "immutability-helper": "^3.1.1",
+    "moment": "^2.29.1",
     "react": ">=16.8.0",
     "react-dnd": "^14.0.2",
     "react-dnd-html5-backend": "^14.0.0",

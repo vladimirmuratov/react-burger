@@ -1,0 +1,13 @@
+
+.pageProfileOrders_wrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.pageProfileOrders_orderList {
+    margin-top: 70px;
+}
+

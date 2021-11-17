@@ -1,3 +1,3 @@
 export type TProps = {
-    number: number;
+    number: number | JSX.Element;
 }

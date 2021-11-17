@@ -2,9 +2,9 @@ import React, {FC, useCallback, useEffect, useState} from "react";
 import style from "./page-forgot-password.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useHistory} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {clearMessage, forgotFormFull, resetPassword} from "../../services/user/actions";
 import {Preloader} from "../../components/preloader/preloader";
+import {useDispatch, useSelector} from "../../services/hooks";
 
 export const ForgotPasswordPage: FC = () => {
     const history = useHistory()
@@ -13,10 +13,10 @@ export const ForgotPasswordPage: FC = () => {
     const [emailVal, setEmailVal] = useState<string | ''>('')
     const [isValid, setIsValid] = useState<boolean>(false)
 
-    const isAuth = useSelector((state: any) => state.user.isAuth)
-    const message = useSelector((state: any) => state.user.message)
-    const error = useSelector((state: any) => state.user.error)
-    const isLoading = useSelector((state: any) => state.user.isLoading)
+    const {isAuth} = useSelector((state) => state.user)
+    const {message} = useSelector((state) => state.user)
+    const {error} = useSelector((state) => state.user)
+    const {isLoading} = useSelector((state) => state.user)
 
     useEffect(() => {
         if (isAuth) {
@@ -43,7 +43,8 @@ export const ForgotPasswordPage: FC = () => {
         setEmailVal(e.target.value)
     }
 
-    const clickHandler = useCallback(async () => {
+    const onSubmitHandler = useCallback(async (e) => {
+        e.preventDefault()
         if (emailVal) {
             await dispatch(resetPassword(emailVal))
             history.push({state: {pathname: history.location.pathname, email: emailVal}})
@@ -53,7 +54,7 @@ export const ForgotPasswordPage: FC = () => {
 
     return (
         <div className={style.wrapper}>
-            <div className={style.content}>
+            <form className={style.content} onSubmit={onSubmitHandler}>
                 <p className="text text_type_main-medium">Восстановление пароля</p>
                 {isLoading && <Preloader/>}
                 {message && <p className="text text_type_main-medium" style={{color: 'green'}}>{message}</p>}
@@ -63,13 +64,13 @@ export const ForgotPasswordPage: FC = () => {
                            size="default"/>
                 </div>
                 <div className={style.button}>
-                    <Button type="primary" size="medium" onClick={clickHandler}>Восстановить</Button>
+                    <Button type="primary" size="medium">Восстановить</Button>
                 </div>
                 <p className="text text_type_main-default text_color_inactive">
                     Вспомнили пароль?&nbsp;
                     <Link to="/login">Войти</Link>
                 </p>
-            </div>
+            </form>
         </div>
     )
 }

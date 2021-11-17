@@ -1,4 +1,4 @@
-.parent {
+.modalOverlay_wrapper {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -9,6 +9,21 @@
     align-content: center;
     justify-content: center;
     overflow: auto;
-
+    z-index: 999;
     background-color: rgba(192,192,192, 0.7);
+    animation: animModalOverlay .15s ease-in forwards;
+}
+
+@keyframes animModalOverlay {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }

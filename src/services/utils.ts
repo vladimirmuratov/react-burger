@@ -1,3 +1,6 @@
+import moment from "moment";
+import "moment/locale/ru";
+
 export function getCookie(name: string) {
     const matches = document.cookie.match(
         new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
@@ -30,4 +33,9 @@ export function setCookie(name: string, value: string | number | boolean, props?
 
 export function deleteCookie(name: string) {
     setCookie(name, '', { expires: -1 });
+}
+
+export function formattedDate(date: string | undefined){
+    moment.locale('ru')
+    return `${moment(date).calendar()} i-GMT+3`
 }

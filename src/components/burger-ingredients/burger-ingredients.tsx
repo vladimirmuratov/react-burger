@@ -2,13 +2,13 @@ import React, {FC, useEffect, useState} from "react";
 import {Card} from "./card/card";
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
-import {useSelector} from "react-redux";
 import {Preloader} from "../preloader/preloader";
 import {TItem} from "../../types";
+import {useSelector} from "../../services/hooks";
 
 export const BurgerIngredients: FC = () => {
-    const data: any = useSelector((state: any) => state.burger.ingredients)
-    const isLoading = useSelector((state: any) => state.burger.isLoading)
+    const data = useSelector((state) => state.burger.ingredients)
+    const isLoading = useSelector((state) => state.burger.isLoading)
 
     const [bun, setBun] = useState<Array<TItem>>([])
     const [main, setMain] = useState<Array<TItem>>([])
@@ -38,7 +38,7 @@ export const BurgerIngredients: FC = () => {
     }, [data])
 
     const getProd = (type: string, setter: Function): void => {
-        data && data.map((item: TItem) => (item.type === type) && setter((prevState: Array<TItem>) => [
+        data?.map((item: TItem) => (item.type === type) && setter((prevState: Array<TItem>) => [
             ...prevState,
             item
         ]))

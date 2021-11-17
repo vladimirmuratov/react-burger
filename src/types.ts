@@ -1,4 +1,4 @@
-export type TItemWithIndex = TItem & {index: number;}
+export type TItemWithIndex = TItem & { index: number; }
 
 export type TItem = {
     calories: number;
@@ -15,4 +15,20 @@ export type TItem = {
     type: string;
     __v: number;
     _id: string;
+}
+
+export interface IMessage {
+    success: boolean;
+    orders: [
+        {
+            ingredients: Array<string>;
+            _id: string;
+            status: string;
+            number: number;
+            createdAt: string;
+            updatedAt: string;
+        }
+    ];
+    total: number;
+    totalToday: number;
 }
