@@ -35,7 +35,7 @@ export const ModalOverlay: FC<TProps> = ({onClose, children}) => {
         <>
             {(isOpenModal) &&
             ReactDOM.createPortal((
-                    <div className={styles.parent} onClick={handleOverlayClick}>
+                    <div className={styles.modalOverlay_wrapper} onClick={handleOverlayClick}>
                         {children}
                     </div>),
                 modalRoot

@@ -16,6 +16,21 @@
     box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
     border-radius: 40px;
     overflow-y: auto;
+    animation: animModal .3s ease-in forwards;
+}
+
+@keyframes animModal {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 .modal::-webkit-scrollbar {
