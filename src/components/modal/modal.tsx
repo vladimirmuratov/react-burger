@@ -12,7 +12,7 @@ export const Modal: FC<TProps> = ({title = '', onClose, children}) => {
             <div className={styles.modal}>
                 <div className={styles.header}>
                     <span className="text text_type_main-large">{title}</span>
-                    <span className={styles.close}>
+                    <span className={styles.modal_close}>
                         <CloseIcon type="primary" onClick={onClose}/>
                     </span>
                 </div>
