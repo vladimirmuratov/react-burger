@@ -34,7 +34,7 @@ type TUserState = {
 }
 
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
     user: {},
     isAuth: false,
     error: '',

@@ -5,7 +5,7 @@ type TModalState = {
     isOpenModal: boolean;
 }
 
-const initialState: TModalState = {
+export const initialState: TModalState = {
     isOpenModal: false,
 }
 

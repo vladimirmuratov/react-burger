@@ -125,7 +125,8 @@ export const BurgerConstructor: FC = () => {
 
     const modalWithPreloader = (
         <div className={styles.waitModal}>
-            <Modal onClose={() => {}}>
+            <Modal onClose={() => {
+            }}>
                 <OrderDetails number={orderNum ? orderNum : <Preloader/>}/>
             </Modal>
         </div>
@@ -133,8 +134,8 @@ export const BurgerConstructor: FC = () => {
 
     return (
         <>
-            <section className={styles.block}>
-                <div className={`${styles.itemUp} ${isHoverBun && styles.activeBorder}`} ref={dropTargetBun}>
+            <section className={styles.constructor_block}>
+                <div className={`${styles.bunUp} ${isHoverBun && styles.activeBorder}`} ref={dropTargetBun}>
                     {bun.length
                         ? bun.map((item: TItem) => (
                             <ConstructorElement key={item._id} text={`${item.name} (верх)`} thumbnail={item.image}
@@ -145,7 +146,8 @@ export const BurgerConstructor: FC = () => {
                         : <p className="text text_type_main-default">Перетащите сюда булку</p>
                     }
                 </div>
-                <div className={`${styles.content} ${isHover && styles.activeBorder}`} ref={dropTargetItem}>
+                <div className={`${styles.container_ingredients} ${isHover && styles.activeBorder}`}
+                     ref={dropTargetItem}>
                     <div ref={dropTargetItem2}>
                         {ingredients?.length > 0
                             ? ingredients && ingredients?.map((item: TItem, index: number) => (
@@ -162,7 +164,7 @@ export const BurgerConstructor: FC = () => {
                         }
                     </div>
                 </div>
-                <div className={styles.itemDown}>
+                <div className={styles.bunDown}>
                     {bun.length ?
                         bun.map((item: TItem) => (
                             <ConstructorElement key={item._id} text={`${item.name} (низ)`} thumbnail={item.image}
@@ -178,7 +180,7 @@ export const BurgerConstructor: FC = () => {
                     {total
                         ? (
                             <>
-                                <span className="text text_type_digits-medium">{total}</span>
+                                <span className={`${styles.totalPrice} text text_type_digits-medium`}>{total}</span>
                                 <span className={styles.icon}><CurrencyIcon type="primary"/></span>
                             </>
                         )

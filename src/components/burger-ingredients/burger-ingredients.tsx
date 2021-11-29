@@ -53,7 +53,7 @@ export const BurgerIngredients: FC = () => {
     return (
         <>
             {!isLoading
-                ? <section className={styles.block}>
+                ? <section className={styles.ingredients_block}>
                     <div className={styles.title}>
                         <p className="text text_type_main-large">Соберите бургер</p>
                     </div>

@@ -36,7 +36,7 @@ export const Card: FC<TProps> = ({product}) => {
         }}
               className={styles.link}
         >
-            <div ref={dragRef} className={styles.wrapper} onClick={onOpenModal}>
+            <div ref={dragRef} className={styles.card_wrapper} onClick={onOpenModal}>
                 {totalCount > 0 &&
                 <span className={styles.counter}>
                     <Counter count={totalCount}/>

@@ -2,12 +2,12 @@ import {TOrderActions} from "./types";
 import {CLEAR_ORDER, FINISH_REQUEST, PUT_ORDER_IDS_INGREDIENTS, START_REQUEST} from "./constants";
 
 type TOrderState = {
-    order: {};
+    order: Array<string>;
     orderNum: number;
 }
 
-const initialState: TOrderState = {
-    order: {},
+export const initialState: TOrderState = {
+    order: [],
     orderNum: 0,
 }
 
@@ -30,7 +30,7 @@ export const orderReducer = (state = initialState, action: TOrderActions): TOrde
         case CLEAR_ORDER:
             return {
                 ...state,
-                order: {},
+                order: [],
                 orderNum: 0
             }
         default:

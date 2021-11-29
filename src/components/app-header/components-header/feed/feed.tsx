@@ -8,11 +8,11 @@ export const Feed:FC = () => {
     const isExact = pathname === '/feed'
 
     return (
-        <NavLink exact={true} to="/feed" className={styles.wrapper}>
-            <span className={styles.icon}>
+        <NavLink exact={true} to="/feed" className={styles.feed_wrapper}>
+            <span className={styles.feed_icon}>
                 <ListIcon type={isExact ? "primary" : "secondary"}/>
             </span>
-            <span className={isExact ? styles.activeLink : styles.link}>Лента заказов</span>
+            <span className={isExact ? styles.feed_activeLink : styles.feed_link}>Лента заказов</span>
         </NavLink>
     )
 }
