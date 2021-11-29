@@ -20,7 +20,7 @@ type TIngredientsState = {
 }
 
 
-const initialState: TIngredientsState = {
+export const initialState: TIngredientsState = {
     ingredients: [],
     ingredientsInConstructor: [],
     currentIngredient: {} as TItem,

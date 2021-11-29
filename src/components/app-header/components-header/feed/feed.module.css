@@ -4,7 +4,7 @@
     line-height: 24px;
 }
 
-.wrapper {
+.feed_wrapper {
     padding: 0;
 
     display: flex;
@@ -19,21 +19,21 @@
     cursor: pointer;
 }
 
-.wrapper:hover {
+.feed_wrapper:hover {
     color: #F2F2F3;
 }
 
-.wrapper:hover svg {
+.feed_wrapper:hover svg {
     fill: #F2F2F3;
 }
 
-.link {
+.feed_link {
     composes: font;
     color: #8585AD;
     transition: all 0.8s ease 0s;
 }
 
-.link:hover {
+.feed_link:hover {
     color: #F2F2F3;
 }
 
@@ -41,11 +41,11 @@ a {
     text-decoration: none;
 }
 
-.activeLink {
+.feed_activeLink {
     composes: font;
     color: #F2F2F3;
 }
 
-.icon svg {
+.feed_icon svg {
     transition: all 0.8s ease 0s;
 }

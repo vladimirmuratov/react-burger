@@ -1,4 +1,4 @@
-.feedInfo_block {
+.constructor_block {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,7 +7,7 @@
     margin-bottom: 40px;
 }
 
-.content {
+.container_ingredients {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -18,7 +18,7 @@
     overflow-y: scroll;
 }
 
-.content p{
+.container_ingredients p{
     margin-left: 40px;
 }
 
@@ -27,12 +27,12 @@
     border-radius: 10px;
 }
 
-.content::-webkit-scrollbar {
+.container_ingredients::-webkit-scrollbar {
     width: 8px;
     background-color: #2f2f37;
 }
 
-.content::-webkit-scrollbar-thumb {
+.container_ingredients::-webkit-scrollbar-thumb {
     background-color: #8585ad;
 }
 
@@ -63,7 +63,7 @@
     margin-left: 9px;
 }
 
-.itemUp {
+.bunUp {
     width: 95%;
     min-height: 100px;
     display: flex;
@@ -75,10 +75,12 @@
     padding-left: 25px;
 }
 
-.itemDown {
+.bunDown {
     padding-left: 25px;
     margin-top: 16px;
 }
+
+.totalPrice{}
 
 .waitModal{
     display: flex;
