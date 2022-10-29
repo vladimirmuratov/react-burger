@@ -63,4 +63,7 @@ html{
     .subtitle{
         justify-self: center;
     }
+    .ingredients_block {
+        max-width: 50%;
+    }
 }

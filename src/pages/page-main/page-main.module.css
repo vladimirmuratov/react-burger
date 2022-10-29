@@ -9,12 +9,3 @@
     max-width: 1240px;
     padding-top: 80px;
 }
-
-@media (max-width: 1270px){
-    .wrapper{
-        display: grid;
-        grid-template-columns: 1fr;
-        justify-items: center;
-        gap: 40px;
-    }
-}
